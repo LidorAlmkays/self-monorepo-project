@@ -1,1 +1,20 @@
 /* You can add global styles to this file, and also import other style files */
+@import 'primeng/resources/themes/lara-dark-blue/theme.css';
+@import 'primeflex/primeflex.css';
+@import 'primeng/resources/primeng.css';
+@import 'primeicons/primeicons.css';
+/* In your styles.css or global styles file */
+html,
+body {
+  height: 100%;
+  margin: 0;
+  width: 100%;
+}
+
+app-root {
+  height: 100%;
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+}

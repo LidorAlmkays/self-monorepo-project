@@ -1,0 +1,47 @@
+<form [formGroup]="form" (ngSubmit)="submit()">
+  @for (field of formFields; track field.controlKey){
+  <div class="field grid">
+    <div class="flex align-items-center col-fixed labelBaseWidth">
+      <label>{{ field.label }}</label>
+    </div>
+    @switch (field.inputType){ @case(InputFieldTextTypes.text){
+    <app-single-input-field
+      class="col"
+      [controlKey]="field.controlKey"
+      [validators]="field?.validators"
+      [placeholder]="field.label != undefined ? field.label.split(':')[0] : ''"
+    ></app-single-input-field>
+    } @case(InputFieldTextTypes.password){
+    <app-single-password-field
+      class="col"
+      [controlKey]="field.controlKey"
+      [validators]="field?.validators"
+      [placeholder]="field.label != undefined ? field.label.split(':')[0] : ''"
+      [options]="field.options"
+    ></app-single-password-field>
+    } @case(InputFieldTextTypes.number){
+    <app-single-number-field
+      class="col"
+      [controlKey]="field.controlKey"
+      [validators]="field?.validators"
+      [placeholder]="field.label != undefined ? field.label.split(':')[0] : ''"
+    ></app-single-number-field>
+    } @case(InputFieldTextTypes.date){
+    <app-single-date-field
+      class="col"
+      [controlKey]="field.controlKey"
+      [validators]="field?.validators"
+      [placeholder]="field.label != undefined ? field.label.split(':')[0] : ''"
+    ></app-single-date-field>
+    } }
+  </div>
+  }
+  <div class="flex flex-wrap align-items-center justify-content-center">
+    <button
+      class="w-6"
+      pButton
+      label="Submit"
+      [disabled]="form.invalid"
+    ></button>
+  </div>
+</form>

@@ -5,6 +5,10 @@ dist
 tmp
 /out-tsc
 
+# uncomment this if you want to keep your develpment env safe
+# .env
+# .env.ts
+
 # dependencies
 node_modules
 
