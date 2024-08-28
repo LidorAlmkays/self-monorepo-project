@@ -38,4 +38,8 @@ export class SingleDateFieldComponent {
   ngOnDestroy() {
     this.parentFormGroup.removeControl(this.controlKey);
   }
+
+  onDateSelect(event: Date) {
+    this.parentFormGroup.get(this.controlKey)?.updateValueAndValidity();
+  }
 }

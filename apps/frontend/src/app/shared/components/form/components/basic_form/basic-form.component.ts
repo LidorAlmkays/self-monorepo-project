@@ -20,6 +20,7 @@ import {
 export class BasicFormComponent implements AfterViewInit {
   form = new FormGroup({});
   @Input({ required: true }) formFields: AllInputFieldsTypeWithLabel[] = [];
+  @Input() isLoading: boolean = false;
   @Output() onSubmit = new EventEmitter();
 
   public get InputFieldTextTypes(): typeof InputFieldTextTypes {

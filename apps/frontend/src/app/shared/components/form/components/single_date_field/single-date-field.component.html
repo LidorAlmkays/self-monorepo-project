@@ -3,5 +3,7 @@
   [id]="controlKey"
   [placeholder]="placeholder"
   dateFormat="dd.mm.yy"
-  [showIcon]="true"
+  [touchUI]="true"
+  [readonlyInput]="true"
+  (onSelect)="onDateSelect($event)"
 />
