@@ -1,7 +1,7 @@
 package main
 
 import (
-	"libs/golang/logger"
+	"github.com/LidorAlmkays/self-monorepo-project/libs/golang/logger"
 )
 
 func main() {
