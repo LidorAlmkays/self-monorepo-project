@@ -7,6 +7,7 @@ export class UserService {
   constructor(private http: HttpClient) {}
 
   registerUser(userModel: UserModel): Observable<UserModel> {
+    //TODO:(lidor) change this to go to the gateway api and register the user.
     return of(userModel);
   }
 }

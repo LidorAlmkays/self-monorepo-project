@@ -4,5 +4,6 @@ toolchain go1.23.0
 
 use (
 	./apps/gateway
+	./apps/user
 	./libs/golang/logger
 )
