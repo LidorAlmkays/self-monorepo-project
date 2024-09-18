@@ -4,7 +4,11 @@ include:
   - path:
       - templates/frontend.yaml
   - path:
+      - templates/frontend-gateway.yaml
+  - path:
       - templates/mongo.yaml
+  - path:
+      - templates/user.yaml
 
 networks:
   common-network:

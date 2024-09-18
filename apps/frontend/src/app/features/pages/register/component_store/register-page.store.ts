@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { ComponentStore } from '@ngrx/component-store';
 import { tapResponse } from '@ngrx/operators';
 import { catchError, concatMap, EMPTY, Observable, take, tap } from 'rxjs';
-import { UserService } from 'shared/components/services/user.service';
 import { UserModel } from 'shared/models';
+import { UserService } from 'shared/services/user.services';
 
 export interface RegisterState {
   isLoading: boolean;

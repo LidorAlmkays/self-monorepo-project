@@ -72,7 +72,6 @@
     },
     "container": {
       "executor": "@nx-tools/nx-container:build",
-      "dependsOn": ["build"],
       "options": {
         "engine": "docker",
         "load": true,

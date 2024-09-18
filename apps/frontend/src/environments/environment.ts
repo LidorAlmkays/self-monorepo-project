@@ -2,6 +2,6 @@ import env from './.env';
 
 export const environment = {
   production: false,
-  apiBaseUrl: 'http://localhost:8000',
-  version: env.npm_package_version,
+  gateway: 'http://localhost:5000',
+  // version: env.npm_package_version,
 };

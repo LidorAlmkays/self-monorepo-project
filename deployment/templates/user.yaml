@@ -1,0 +1,12 @@
+services:
+  user:
+    container_name: user
+    restart: unless-stopped
+    build:
+      context: '../../apps/user'
+      dockerfile: 'Dockerfile'
+    env_file: '../configs/user-service.env'
+    depends_on:
+      - mongodb
+    networks:
+      - common-network

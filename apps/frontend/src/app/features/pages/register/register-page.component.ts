@@ -8,8 +8,8 @@ import {
 } from 'shared/components/form';
 import { formFields } from './register-format.config';
 import { RegisterStore } from './component_store/register-page.store';
-import { UserService } from 'shared/components/services/user.service';
 import { UserModel } from 'shared/models';
+import { UserService } from 'shared/services/user.services';
 
 @Component({
   selector: 'page-register-page',
@@ -22,6 +22,7 @@ import { UserModel } from 'shared/models';
 export class RegisterPageComponent {
   formFields: AllInputFieldsTypeWithLabel[] = formFields;
   registerStoreVm$;
+
   constructor(private readonly registerStore: RegisterStore) {
     this.registerStoreVm$ = this.registerStore.vm$;
   }

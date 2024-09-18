@@ -3,7 +3,8 @@ go 1.23
 toolchain go1.23.0
 
 use (
-	./apps/gateway
+	./apps/frontend_gateway
 	./apps/user
+	./libs/golang/configs
 	./libs/golang/logger
 )

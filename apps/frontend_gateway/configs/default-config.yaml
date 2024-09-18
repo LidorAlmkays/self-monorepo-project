@@ -1,0 +1,6 @@
+# Server configurations
+frontend:
+  url: 'http://localhost:4200'
+server:
+  project-name: 'frontend-gateway'
+  port: 5000
