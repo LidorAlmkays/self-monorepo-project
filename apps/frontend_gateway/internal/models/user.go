@@ -1,8 +1,11 @@
 package models
 
+import "time"
+
 type UserModel struct {
-	UserName string
-	Password string
-	Email    string
-	Age      int
+	Name     string    `json:"Name"`
+	UserName string    `json:"username"`
+	Password string    `json:"password"`
+	Email    string    `json:"email"`
+	Age      time.Time `json:"age"`
 }

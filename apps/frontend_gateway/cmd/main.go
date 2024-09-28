@@ -8,7 +8,9 @@ import (
 	"github.com/LidorAlmkays/self-monorepo-project/apps/frontend_gateway/configs"
 	"github.com/LidorAlmkays/self-monorepo-project/apps/frontend_gateway/internal/adapters/frameworks/left"
 	"github.com/LidorAlmkays/self-monorepo-project/apps/frontend_gateway/internal/adapters/frameworks/left/rest"
+	"github.com/LidorAlmkays/self-monorepo-project/apps/frontend_gateway/internal/adapters/frameworks/right/rabbitmq"
 	"github.com/LidorAlmkays/self-monorepo-project/apps/frontend_gateway/internal/application"
+	"github.com/LidorAlmkays/self-monorepo-project/apps/frontend_gateway/internal/ports"
 	libConfigs "github.com/LidorAlmkays/self-monorepo-project/libs/golang/configs"
 	"github.com/LidorAlmkays/self-monorepo-project/libs/golang/logger"
 )
@@ -26,9 +28,24 @@ func setUp() error {
 
 	//create project custom logger
 	var l logger.CustomLogger = logger.NewStackedCustomLogger(cfg.Server.ProjectName)
-	userApplication := application.NewUserApi()
 
-	//start http server
+	//init the rabbitmq connection
+	rabbitmqManager := rabbitmq.NewRabbitmqManager(cfg.Rabbitmq.Url, ctx, l)
+	err = rabbitmqManager.StartConnection()
+	if err != nil {
+		return err
+	}
+
+	defer rabbitmqManager.CloseConnection()
+	// //create project api with the gui
+	var userService ports.UserServicePorts
+	userService, err = rabbitmqManager.NewUserService()
+	if err != nil {
+		return err
+	}
+	userApplication := application.NewUserApi(userService, l)
+
+	//start http server to talk with frontend
 	var s left.BaseServer = rest.NewServer(ctx, *cfg, l, userApplication)
 	err = s.ListenAndServe()
 	if err != nil {

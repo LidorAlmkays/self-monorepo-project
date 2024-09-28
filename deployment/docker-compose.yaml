@@ -1,14 +1,16 @@
 version: '3.8'
 
 include:
+  # - path:
+  #     - templates/frontend.yaml
+  # - path:
+  #     - templates/frontend-gateway.yaml
+  # - path:
+  #     - templates/mongo.yaml
+  #   - path:
+  #       - templates/user.yaml
   - path:
-      - templates/frontend.yaml
-  - path:
-      - templates/frontend-gateway.yaml
-  - path:
-      - templates/mongo.yaml
-  - path:
-      - templates/user.yaml
+      - templates/rabbitmq.yaml
 
 networks:
   common-network:
