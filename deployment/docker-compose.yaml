@@ -1,14 +1,16 @@
 version: '3.8'
 
 include:
-  # - path:
-  #     - templates/frontend.yaml
-  # - path:
-  #     - templates/frontend-gateway.yaml
-  # - path:
-  #     - templates/mongo.yaml
   #   - path:
-  #       - templates/user.yaml
+  #       - templates/frontend.yaml
+  #   - path:
+  #       - templates/frontend-gateway.yaml
+  #   - path:
+  #       - templates/mongo.yaml
+  #   - path:
+  #       - templates/user-service.yaml
+  - path:
+      - templates/rabbitmq-initializer-service.yaml
   - path:
       - templates/rabbitmq.yaml
 

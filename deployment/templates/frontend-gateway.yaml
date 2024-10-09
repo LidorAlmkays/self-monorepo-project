@@ -5,6 +5,5 @@ services:
     build:
       context: '../../apps/frontend_gateway'
       dockerfile: 'Dockerfile'
-    env_file: '../configs/frontend-gateway.env'
     networks:
       - common-network

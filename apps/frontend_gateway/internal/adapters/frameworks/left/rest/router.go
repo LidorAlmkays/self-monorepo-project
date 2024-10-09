@@ -11,7 +11,7 @@ func (s *server) addRoutes() http.Handler {
 	s.l.Message("Setting up http routes")
 	// Setup CORS
 	c := cors.New(cors.Options{
-		AllowedOrigins:   []string{s.cfg.Frontend.Url}, // Your frontend URL
+		AllowedOrigins:   []string{s.cfg.ServiceConfig.Frontend.Url}, // Your frontend URL
 		AllowCredentials: true,
 		AllowedMethods:   []string{"GET", "POST", "PUT", "DELETE"},
 		AllowedHeaders:   []string{"Authorization", "Content-Type"},

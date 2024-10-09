@@ -27,8 +27,8 @@ func NewServer(ctx context.Context, cfg configs.Config, l logger.CustomLogger, u
 
 func (s *server) ListenAndServe() error {
 	handler := s.addRoutes()
-	s.l.Message("Server ready to receive REST requests, on port: " + strconv.Itoa(s.cfg.Server.Port))
-	err := http.ListenAndServe(":"+strconv.Itoa(s.cfg.Server.Port), handler)
+	s.l.Message("Server ready to receive REST requests, on port: " + strconv.Itoa(s.cfg.ServiceConfig.Server.Port))
+	err := http.ListenAndServe(":"+strconv.Itoa(s.cfg.ServiceConfig.Server.Port), handler)
 	if err != nil {
 		return err
 	}

@@ -1,0 +1,3 @@
+VHOST: /
+QUEUE: Response.frontend-gateway
+INDEX: v2

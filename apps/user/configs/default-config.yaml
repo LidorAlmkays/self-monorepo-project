@@ -1,8 +1,0 @@
-# Server configurations
-server:
-  project-name: user-service
-  port: 5001
-db:
-  url: 'mongodb://root:password@localhost:27017'
-  type: 'mongo'
-  name: 'TestingDatabaseName'

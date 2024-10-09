@@ -19,18 +19,23 @@ import (
 func setUp() error {
 	ctx := context.Background()
 
+	var err error
 	//open configs
-	cfg, err := libConfigs.GetConfig[configs.Config]("./configs/")
-
+	var cfg configs.Config = configs.Config{}
+	cfg.SharedConfig, err = libConfigs.GetConfig[libConfigs.SharedConfigs]("./configs/", "shared-configs.yaml")
+	if err != nil {
+		return err
+	}
+	cfg.ServiceConfig, err = libConfigs.GetConfig[configs.ServiceConfig]("./configs/", "user-service.yaml")
 	if err != nil {
 		return err
 	}
 
 	//create project custom logger
-	var l logger.CustomLogger = logger.NewStackedCustomLogger(cfg.Server.ProjectName)
+	var l logger.CustomLogger = logger.NewStackedCustomLogger(cfg.ServiceConfig.Server.ProjectName)
 
 	//starting db connection
-	dbConnection, err := db.CreateDbByType(ctx, cfg.Db.Type, cfg.Db.Url, cfg.Db.Name)
+	dbConnection, err := db.CreateDbByType(ctx, cfg.ServiceConfig.Db.Type, cfg.ServiceConfig.Db.Url, cfg.ServiceConfig.Db.Name)
 	if err != nil {
 		return err
 	}
@@ -43,7 +48,7 @@ func setUp() error {
 	userApplication := application.NewUserApi(dbConnection)
 
 	//start http server
-	var s left.BaseServer = rest.NewServer(ctx, *cfg, l, userApplication)
+	var s left.BaseServer = rest.NewServer(ctx, cfg, l, userApplication)
 	err = s.ListenAndServe()
 	if err != nil {
 		return err

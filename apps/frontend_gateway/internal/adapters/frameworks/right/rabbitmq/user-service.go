@@ -6,6 +6,7 @@ import (
 	"errors"
 	"time"
 
+	"github.com/LidorAlmkays/self-monorepo-project/apps/frontend_gateway/configs"
 	"github.com/LidorAlmkays/self-monorepo-project/apps/frontend_gateway/internal/models"
 	"github.com/LidorAlmkays/self-monorepo-project/apps/frontend_gateway/internal/ports"
 	"github.com/LidorAlmkays/self-monorepo-project/libs/golang/logger"
@@ -16,28 +17,16 @@ type userService struct {
 	ch  *amqp.Channel
 	ctx context.Context
 	l   logger.CustomLogger
-	q   *amqp.Queue
+	cfg configs.Config
 }
 
 func (rmqM *RabbitmqManager) NewUserService() (ports.UserServicePorts, error) {
-	ch, err := rmqM.Conn.Channel()
+	ch, err := rmqM.conn.Channel()
 	if err != nil {
 		return nil, err
 	}
-	q, err := ch.QueueDeclare(
-		"user-service", // name
-		false,          // durable
-		true,           // delete when unused
-		false,          // exclusive
-		false,          // no-wait
-		nil,            // arguments
-	)
-	if err != nil {
-		rmqM.l.Error(errors.New("failed to declare user-service queue"))
-		return nil, err
-	}
-
-	return &userService{ch, rmqM.ctx, rmqM.l, &q}, nil
+	rmqM.chs = append(rmqM.chs, ch)
+	return &userService{ch, rmqM.ctx, rmqM.l, rmqM.cfg}, nil
 }
 
 func (userService *userService) AddUser(user models.UserModel) error {
@@ -46,14 +35,14 @@ func (userService *userService) AddUser(user models.UserModel) error {
 	defer cancel()
 	messageBody, err := json.Marshal(user)
 	if err != nil {
-		userService.l.Error(errors.New("failed to parse the data into a json to send throw the rabbitmq"))
+		userService.l.Error(errors.New("failed to marshal user data, cant send to the rabbitmq"))
 		return err
 	}
 	err = userService.ch.PublishWithContext(ctx,
-		"",                 // exchange
-		userService.q.Name, // routing key
-		false,              // mandatory
-		false,              // immediate
+		userService.cfg.SharedConfig.Rabbitmq.MainExchangeName, // exchange
+		"user-service.AddUser",                                 // routing key
+		false,                                                  // mandatory
+		false,                                                  // immediate
 		amqp.Publishing{
 			ContentType: "text/plain",
 			Body:        messageBody,

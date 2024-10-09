@@ -4,5 +4,3 @@ frontend:
 server:
   project-name: 'frontend-gateway'
   port: 5000
-rabbitmq:
-  url: 'amqp://admin:admin@localhost:5672/'

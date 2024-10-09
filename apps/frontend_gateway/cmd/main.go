@@ -18,19 +18,23 @@ import (
 // acts like an init function, but doing it this way i can control the program exit code
 func setUp() error {
 	ctx := context.Background()
-
+	var err error
 	//open configs
-	cfg, err := libConfigs.GetConfig[configs.Config]("./configs/")
-
+	var cfg configs.Config = configs.Config{}
+	cfg.SharedConfig, err = libConfigs.GetConfig[libConfigs.SharedConfigs]("./configs/", "shared-configs.yaml")
+	if err != nil {
+		return err
+	}
+	cfg.ServiceConfig, err = libConfigs.GetConfig[configs.ServiceConfig]("./configs/", "frontend-gateway.yaml")
 	if err != nil {
 		return err
 	}
 
 	//create project custom logger
-	var l logger.CustomLogger = logger.NewStackedCustomLogger(cfg.Server.ProjectName)
+	var l logger.CustomLogger = logger.NewStackedCustomLogger(cfg.ServiceConfig.Server.ProjectName)
 
 	//init the rabbitmq connection
-	rabbitmqManager := rabbitmq.NewRabbitmqManager(cfg.Rabbitmq.Url, ctx, l)
+	rabbitmqManager := rabbitmq.NewRabbitmqManager(cfg, ctx, l)
 	err = rabbitmqManager.StartConnection()
 	if err != nil {
 		return err
@@ -46,7 +50,7 @@ func setUp() error {
 	userApplication := application.NewUserApi(userService, l)
 
 	//start http server to talk with frontend
-	var s left.BaseServer = rest.NewServer(ctx, *cfg, l, userApplication)
+	var s left.BaseServer = rest.NewServer(ctx, cfg, l, userApplication)
 	err = s.ListenAndServe()
 	if err != nil {
 		return err

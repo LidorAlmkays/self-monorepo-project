@@ -7,6 +7,10 @@ WORKDIR /app
 # Copy the source code
 COPY . .
 
+COPY ../../deployment/configs/shared-configs.yaml /app/configs/shared-configs.yaml
+
+COPY ../../deployment/configs/user-service.yaml /app/configs/user-service.yaml
+
 RUN go mod download
 
 # Build the Go application

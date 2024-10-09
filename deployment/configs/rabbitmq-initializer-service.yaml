@@ -1,0 +1,9 @@
+project-name: 'rabbitmq_initializer_service'
+services-names: ['frontend-gateway', 'user-service']
+queues:
+  user-service:
+    routing-key: 'user-service.*'
+    queue-name: 'user-service'
+  frontend-gateway:
+    routing-key: 'frontend-gateway.*'
+    queue-name: 'frontend-gateway'

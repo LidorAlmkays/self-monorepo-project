@@ -1,0 +1,35 @@
+{
+  "name": "rabbitmq-initializer-service",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps/rabbitmq_initializer_service",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx-go/nx-go:build",
+      "options": {
+        "main": "{projectRoot}/cmd/main.go"
+      }
+    },
+    "serve": {
+      "executor": "@nx-go/nx-go:serve",
+      "options": {
+        "main": "{projectRoot}/cmd/main.go"
+      }
+    },
+    "tidy": {
+      "executor": "@nx-go/nx-go:tidy"
+    },
+    "container": {
+      "executor": "@nx-tools/nx-container:build",
+      "options": {
+        "engine": "docker",
+        "load": true,
+        "metadata": {
+          "images": ["rabbitmq_initializer_service"],
+          "tags": ["type=ref,event=branch"]
+        }
+      }
+    }
+  }
+}

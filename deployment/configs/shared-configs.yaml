@@ -1,0 +1,8 @@
+rabbitmq:
+  queues:
+    user-service:
+      service-name: 'user-service'
+      routing-key: 'user-service.*'
+      queue-name: 'user-service'
+  main-exchange-name: 'self-monorepo-exchange'
+  url: 'amqp://admin:admin@localhost:5672/'
