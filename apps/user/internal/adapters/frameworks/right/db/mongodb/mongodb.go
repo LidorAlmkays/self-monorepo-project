@@ -44,7 +44,7 @@ func (mApi *mongoApi) StartDbConnection() error {
 	return nil
 }
 
-func (mApi mongoApi) CloseDbConnection() error {
+func (mApi *mongoApi) CloseDbConnection() error {
 	err := mApi.connection.Disconnect(mApi.ctx)
 	if err != nil {
 		return err

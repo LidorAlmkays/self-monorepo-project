@@ -34,7 +34,7 @@ func setUp() error {
 	if err != nil {
 		return err
 	}
-	err = rabbitmqManager.InitializeProjectRabbitMq(cfg.ServiceConfig.ServicesNames)
+	err = rabbitmqManager.InitializeProjectRabbitMq()
 	if err != nil {
 		return err
 	}

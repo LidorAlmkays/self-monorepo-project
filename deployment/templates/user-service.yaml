@@ -3,8 +3,8 @@ services:
     container_name: user-service
     restart: unless-stopped
     build:
-      context: '../../apps/user'
-      dockerfile: 'Dockerfile'
+      context: '../..'
+      dockerfile: '/apps/user/Dockerfile'
     depends_on:
       - mongodb
     networks:

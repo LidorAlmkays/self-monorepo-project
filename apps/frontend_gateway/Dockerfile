@@ -5,11 +5,11 @@ FROM golang:latest AS build
 WORKDIR /app
 
 # Copy the source code
-COPY . .
+COPY ./apps/frontend_gateway .
 
-COPY ../../deployment/configs/shared-configs.yaml /app/configs/shared-configs.yaml
+COPY ./deployment/configs/shared-configs.yaml /app/configs/shared-configs.yaml
 
-COPY ../../deployment/configs/frontend-gateway.yaml /app/configs/frontend-gateway.yaml
+COPY ./deployment/configs/frontend-gateway.yaml /app/configs/frontend-gateway.yaml
 
 RUN go mod download
 

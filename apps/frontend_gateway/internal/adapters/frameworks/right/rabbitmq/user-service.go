@@ -22,6 +22,7 @@ type userService struct {
 
 func (rmqM *RabbitmqManager) NewUserService() (ports.UserServicePorts, error) {
 	ch, err := rmqM.conn.Channel()
+
 	if err != nil {
 		return nil, err
 	}
@@ -39,10 +40,10 @@ func (userService *userService) AddUser(user models.UserModel) error {
 		return err
 	}
 	err = userService.ch.PublishWithContext(ctx,
-		userService.cfg.SharedConfig.Rabbitmq.MainExchangeName, // exchange
-		"user-service.AddUser",                                 // routing key
-		false,                                                  // mandatory
-		false,                                                  // immediate
+		userService.cfg.SharedConfig.Rabbitmq.UserExchangeName, // exchange
+		"user-add", // routing key
+		false,      // mandatory
+		false,      // immediate
 		amqp.Publishing{
 			ContentType: "text/plain",
 			Body:        messageBody,

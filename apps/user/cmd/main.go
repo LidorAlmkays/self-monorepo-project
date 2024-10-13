@@ -10,6 +10,7 @@ import (
 
 	"github.com/LidorAlmkays/self-monorepo-project/apps/user/configs"
 	"github.com/LidorAlmkays/self-monorepo-project/apps/user/internal/adapters/frameworks/left"
+	"github.com/LidorAlmkays/self-monorepo-project/apps/user/internal/adapters/frameworks/left/rabbitmq"
 	"github.com/LidorAlmkays/self-monorepo-project/apps/user/internal/adapters/frameworks/left/rest"
 	"github.com/LidorAlmkays/self-monorepo-project/apps/user/internal/adapters/frameworks/right/db"
 	"github.com/LidorAlmkays/self-monorepo-project/apps/user/internal/application"
@@ -17,6 +18,7 @@ import (
 
 // acts like an init function, but doing it this way i can control the program exit code
 func setUp() error {
+
 	ctx := context.Background()
 
 	var err error
@@ -47,13 +49,27 @@ func setUp() error {
 
 	userApplication := application.NewUserApi(dbConnection)
 
+	systemCh := make(chan error)
 	//start http server
-	var s left.BaseServer = rest.NewServer(ctx, cfg, l, userApplication)
-	err = s.ListenAndServe()
-	if err != nil {
-		return err
-	}
-	return nil
+	go func() {
+		var s left.BaseServer = rest.NewServer(ctx, cfg, l, userApplication)
+		err = s.ListenAndServe()
+		if err != nil {
+			l.Error(err)
+		}
+		systemCh <- err
+	}()
+	go func() {
+		var s left.BaseServer = rabbitmq.NewServer(ctx, cfg, l, userApplication)
+		err = s.ListenAndServe()
+		if err != nil {
+			l.Error(err)
+		}
+		systemCh <- err
+	}()
+	err = <-systemCh
+
+	return err
 }
 
 func main() {

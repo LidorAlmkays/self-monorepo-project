@@ -1,5 +1,7 @@
 github.com/LidorAlmkays/self-monorepo-project/libs/golang/configs v0.0.0-20240918182210-fbc639a26826 h1:OBBtrg/pUhXz8no00OWEkZM6uq7xNROK4otTIrUKxS0=
 github.com/LidorAlmkays/self-monorepo-project/libs/golang/configs v0.0.0-20240918182210-fbc639a26826/go.mod h1:9ezAEqh9jzW2/A/3XJNLETI17VHliz9I6zdvLQ7JMrQ=
+github.com/LidorAlmkays/self-monorepo-project/libs/golang/configs v0.0.0-20241009131958-25b17050c9fe h1:xHT9DvPz7Egr2hXohSvdcCehLa68NUB8oGA5psr/ujY=
+github.com/LidorAlmkays/self-monorepo-project/libs/golang/configs v0.0.0-20241009131958-25b17050c9fe/go.mod h1:9ezAEqh9jzW2/A/3XJNLETI17VHliz9I6zdvLQ7JMrQ=
 github.com/LidorAlmkays/self-monorepo-project/libs/golang/logger v0.0.0-20240918182210-fbc639a26826 h1:CG681Z84if32X08n7a0ViIP8jYuRCCfIhCHmo2CUW2w=
 github.com/LidorAlmkays/self-monorepo-project/libs/golang/logger v0.0.0-20240918182210-fbc639a26826/go.mod h1:Cy5U1fyXfSZmCyBTexp6Lf5aGdw2cPdD9MyBh7JbdXg=
 github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=

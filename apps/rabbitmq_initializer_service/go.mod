@@ -3,7 +3,7 @@ module github.com/LidorAlmkays/self-monorepo-project/apps/rabbitmq_initializer_s
 go 1.23
 
 require (
-	github.com/LidorAlmkays/self-monorepo-project/libs/golang/configs v0.0.0-20240918182210-fbc639a26826
+	github.com/LidorAlmkays/self-monorepo-project/libs/golang/configs v0.0.0-20241009131958-25b17050c9fe
 	github.com/LidorAlmkays/self-monorepo-project/libs/golang/logger v0.0.0-20240918182210-fbc639a26826
 	github.com/rabbitmq/amqp091-go v1.10.0
 )
