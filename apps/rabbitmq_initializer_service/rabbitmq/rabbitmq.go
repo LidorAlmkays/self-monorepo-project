@@ -36,7 +36,7 @@ func (rmqM RabbitmqManager) InitializeProjectRabbitMq() error {
 		rmqM.l.Error(errors.New("failed to set up a channel"))
 		return err
 	}
-	rmqM.l.Message("Rabbitmq channel set up for setting up main exchange")
+	rmqM.l.Message("Rabbitmq channel set up for setting up all exchanges")
 
 	err = ch.ExchangeDeclare(rmqM.cfg.SharedConfig.Rabbitmq.UserExchangeName, "topic", false, false, false, false, amqp.Table{})
 	if err != nil {

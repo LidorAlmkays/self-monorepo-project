@@ -1,4 +1,4 @@
-FROM node:latest AS build
+FROM node:21-alpine AS build
 WORKDIR self-monorepo-project
 COPY nx.json /self-monorepo-project/
 COPY tsconfig.base.json /self-monorepo-project/

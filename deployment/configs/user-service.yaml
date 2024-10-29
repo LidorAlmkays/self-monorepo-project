@@ -1,7 +1,7 @@
 server:
-  port: 5000
+  port: 5001
   project-name: 'user-service'
 db:
-  url: 'mongodb://root:password@mongodb:27017/'
-  name: 'databaseNameYAML'
+  url: 'mongodb://root:password@localhost:27017/'
+  name: 'users'
   type: 'mongo'

@@ -1,16 +1,17 @@
 package application
 
 import (
+	"github.com/LidorAlmkays/self-monorepo-project/apps/user/internal/adapters/right/db"
 	"github.com/LidorAlmkays/self-monorepo-project/apps/user/internal/models"
-	"github.com/LidorAlmkays/self-monorepo-project/apps/user/internal/ports"
 )
 
 type userApi struct {
-	db ports.DbPort
+	db db.DbPort
+	// userRsponseManager userResponseManager.UserResponseManager
 }
 
-func NewUserApi(db ports.DbPort) ports.UserPort {
-	return &userApi{db: db}
+func NewUserApi(db db.DbPort) UserPort { //, userRsponseManager userResponseManager.UserResponseManager
+	return &userApi{db: db} //, userRsponseManager: userRsponseManager}
 }
 
 func (uApi *userApi) AddUser(user models.UserModel) error {
@@ -18,5 +19,6 @@ func (uApi *userApi) AddUser(user models.UserModel) error {
 	if err != nil {
 		return err
 	}
+
 	return nil
 }

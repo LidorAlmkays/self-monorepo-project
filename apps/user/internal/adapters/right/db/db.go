@@ -1,4 +1,4 @@
-package ports
+package db
 
 import (
 	"github.com/LidorAlmkays/self-monorepo-project/apps/user/internal/models"

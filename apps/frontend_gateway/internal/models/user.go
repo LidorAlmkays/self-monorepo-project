@@ -7,5 +7,5 @@ type UserModel struct {
 	UserName string    `json:"username"`
 	Password string    `json:"password"`
 	Email    string    `json:"email"`
-	Age      time.Time `json:"age"`
+	BirthDay time.Time `json:"age"`
 }

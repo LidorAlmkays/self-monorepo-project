@@ -3,11 +3,12 @@ package rest
 import (
 	"net/http"
 
-	"github.com/LidorAlmkays/self-monorepo-project/apps/user/internal/adapters/frameworks/left/rest/handlers"
+	"github.com/LidorAlmkays/self-monorepo-project/apps/user/internal/adapters/left/user/rest/handlers"
+	"github.com/LidorAlmkays/self-monorepo-project/apps/user/internal/application"
 	"github.com/rs/cors"
 )
 
-func (s *server) addRoutes() http.Handler {
+func (s *server) addRoutes(userApi application.UserPort) http.Handler {
 	s.l.Message("Setting up http routes")
 	// Setup CORS
 	c := cors.New(cors.Options{
@@ -17,7 +18,7 @@ func (s *server) addRoutes() http.Handler {
 		AllowedHeaders:   []string{"Authorization", "Content-Type"},
 	})
 
-	h := handlers.NewHandler(s.cfg, s.ctx, s.l, s.userApi)
+	h := handlers.NewHandler(s.cfg, s.ctx, s.l, userApi)
 	s.mux.HandleFunc("PUT /user", h.AddUser)
 	return c.Handler(s.mux)
 }

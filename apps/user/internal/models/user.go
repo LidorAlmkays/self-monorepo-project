@@ -1,8 +1,11 @@
 package models
 
+import "time"
+
 type UserModel struct {
-	UserName string `bson:"user_name"`
-	Password string `bson:"password"`
-	Age      int    `bson:"age"`
-	Email    string `bson:"email"`
+	Name     string    `bson:"Name"`
+	UserName string    `bson:"user_name"`
+	Password string    `bson:"password"`
+	BirthDay time.Time `bson:"BirthDay"`
+	Email    string    `bson:"email"`
 }

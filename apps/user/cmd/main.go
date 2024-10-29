@@ -9,10 +9,10 @@ import (
 	"github.com/LidorAlmkays/self-monorepo-project/libs/golang/logger"
 
 	"github.com/LidorAlmkays/self-monorepo-project/apps/user/configs"
-	"github.com/LidorAlmkays/self-monorepo-project/apps/user/internal/adapters/frameworks/left"
-	"github.com/LidorAlmkays/self-monorepo-project/apps/user/internal/adapters/frameworks/left/rabbitmq"
-	"github.com/LidorAlmkays/self-monorepo-project/apps/user/internal/adapters/frameworks/left/rest"
-	"github.com/LidorAlmkays/self-monorepo-project/apps/user/internal/adapters/frameworks/right/db"
+	"github.com/LidorAlmkays/self-monorepo-project/apps/user/internal/adapters/left"
+	"github.com/LidorAlmkays/self-monorepo-project/apps/user/internal/adapters/left/user/rabbitmq"
+	"github.com/LidorAlmkays/self-monorepo-project/apps/user/internal/adapters/left/user/rest"
+	"github.com/LidorAlmkays/self-monorepo-project/apps/user/internal/adapters/right/db/mongodb"
 	"github.com/LidorAlmkays/self-monorepo-project/apps/user/internal/application"
 )
 
@@ -37,7 +37,7 @@ func setUp() error {
 	var l logger.CustomLogger = logger.NewStackedCustomLogger(cfg.ServiceConfig.Server.ProjectName)
 
 	//starting db connection
-	dbConnection, err := db.CreateDbByType(ctx, cfg.ServiceConfig.Db.Type, cfg.ServiceConfig.Db.Url, cfg.ServiceConfig.Db.Name)
+	dbConnection := mongodb.NewMongoApi(ctx, cfg.ServiceConfig.Db.Url, cfg.ServiceConfig.Db.Name)
 	if err != nil {
 		return err
 	}
@@ -52,16 +52,20 @@ func setUp() error {
 	systemCh := make(chan error)
 	//start http server
 	go func() {
-		var s left.BaseServer = rest.NewServer(ctx, cfg, l, userApplication)
-		err = s.ListenAndServe()
+		var s left.BaseServer = rest.NewServer(ctx, cfg, l)
+		err = s.ListenAndServe(userApplication)
 		if err != nil {
 			l.Error(err)
 		}
 		systemCh <- err
 	}()
 	go func() {
-		var s left.BaseServer = rabbitmq.NewServer(ctx, cfg, l, userApplication)
-		err = s.ListenAndServe()
+		s, err := rabbitmq.NewRabbitmqUserConsumer(l, ctx, cfg)
+		if err != nil {
+			l.Error(err)
+			systemCh <- err
+		}
+		err = s.ListenAndServe(userApplication)
 		if err != nil {
 			l.Error(err)
 		}

@@ -25,10 +25,10 @@ export const formFields: AllInputFieldsTypeWithLabel[] = [
     validators: [Validators.required, Validators.email],
   },
   {
-    controlKey: 'age',
-    label: 'Age:',
+    controlKey: 'birthDay',
+    label: 'BirthDay:',
     inputType: InputFieldTextTypes.date,
-    validators: [Validators.required, ageValidator(18)],
+    validators: [Validators.required], //, ageValidator(18)],
   },
   {
     controlKey: 'password',

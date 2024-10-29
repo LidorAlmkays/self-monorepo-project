@@ -5,7 +5,7 @@ import (
 	"log"
 	"time"
 
-	"github.com/LidorAlmkays/self-monorepo-project/apps/user/internal/ports"
+	"github.com/LidorAlmkays/self-monorepo-project/apps/user/internal/adapters/right/db"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
@@ -16,7 +16,9 @@ type mongoApi struct {
 	connection *mongo.Client
 }
 
-func NewMongoApi(ctx context.Context, url string) ports.DbPort {
+func NewMongoApi(ctx context.Context, url string, dbName string) db.DbPort {
+	ctx = context.WithValue(ctx, "database", dbName)
+
 	return &mongoApi{
 		url: url,
 		ctx: ctx,
