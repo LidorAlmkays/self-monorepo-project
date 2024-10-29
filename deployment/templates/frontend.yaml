@@ -1,0 +1,11 @@
+services:
+  frontend:
+    container_name: frontend
+    restart: unless-stopped
+    build:
+      context: '../../'
+      dockerfile: 'apps/frontend/Dockerfile'
+    ports:
+      - '4200:80'
+    networks:
+      - common-network

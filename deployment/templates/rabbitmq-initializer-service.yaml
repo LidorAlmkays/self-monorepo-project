@@ -1,0 +1,11 @@
+services:
+  rabbitmq-initializer:
+    container_name: rabbitmq-initializer
+    restart: unless-stopped
+    build:
+      context: '../../'
+      dockerfile: 'apps/rabbitmq_initializer_service/Dockerfile'
+    depends_on:
+      - rabbitmq
+    networks:
+      - common-network

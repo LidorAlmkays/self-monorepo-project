@@ -1,0 +1,9 @@
+<p-calendar
+  [formControlName]="controlKey"
+  [id]="controlKey"
+  [placeholder]="placeholder"
+  dateFormat="dd.mm.yy"
+  [touchUI]="true"
+  [readonlyInput]="true"
+  (onSelect)="onDateSelect($event)"
+/>
