@@ -1,6 +1,6 @@
-export interface UserModel {
+export interface UserRegisterModel {
   username: string;
-  age: Date;
+  birthDay: Date;
   password: string;
   email: string;
   name: string;

@@ -1,4 +1,4 @@
-package rabbitmq
+package userService
 
 import (
 	"context"
@@ -7,30 +7,32 @@ import (
 	"time"
 
 	"github.com/LidorAlmkays/self-monorepo-project/apps/frontend_gateway/configs"
+	"github.com/LidorAlmkays/self-monorepo-project/apps/frontend_gateway/internal/adapters/frameworks"
 	"github.com/LidorAlmkays/self-monorepo-project/apps/frontend_gateway/internal/models"
-	"github.com/LidorAlmkays/self-monorepo-project/apps/frontend_gateway/internal/ports"
 	"github.com/LidorAlmkays/self-monorepo-project/libs/golang/logger"
 	amqp "github.com/rabbitmq/amqp091-go"
 )
 
-type userService struct {
+type rabbitmqUserService struct {
 	ch  *amqp.Channel
 	ctx context.Context
 	l   logger.CustomLogger
 	cfg configs.Config
 }
 
-func (rmqM *RabbitmqManager) NewUserService() (ports.UserServicePorts, error) {
-	ch, err := rmqM.conn.Channel()
-
+func NewRabbitmqUserService(ctx context.Context, l logger.CustomLogger, cfg configs.Config) (UserServiceApi, error) {
+	conn, err := frameworks.GetRabbitmqConnection(cfg.SharedConfig.Rabbitmq.Url, l)
 	if err != nil {
 		return nil, err
 	}
-	rmqM.chs = append(rmqM.chs, ch)
-	return &userService{ch, rmqM.ctx, rmqM.l, rmqM.cfg}, nil
+	ch, err := conn.Channel()
+	if err != nil {
+		return nil, err
+	}
+	return &rabbitmqUserService{ch, ctx, l, cfg}, nil
 }
 
-func (userService *userService) AddUser(user models.UserModel) error {
+func (userService *rabbitmqUserService) AddUser(user models.UserRegisterModel) error {
 
 	ctx, cancel := context.WithTimeout(userService.ctx, 5*time.Second)
 	defer cancel()

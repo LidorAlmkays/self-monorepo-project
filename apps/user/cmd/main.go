@@ -34,7 +34,7 @@ func setUp() error {
 	}
 
 	//create project custom logger
-	var l logger.CustomLogger = logger.NewStackedCustomLogger(cfg.ServiceConfig.Server.ProjectName)
+	var l logger.CustomLogger = logger.NewStackedCustomLogger(cfg.SharedConfig.UserService.ProjectName)
 
 	//starting db connection
 	dbConnection := mongodb.NewMongoApi(ctx, cfg.ServiceConfig.Db.Url, cfg.ServiceConfig.Db.Name)
@@ -52,7 +52,7 @@ func setUp() error {
 	systemCh := make(chan error)
 	//start http server
 	go func() {
-		var s left.BaseServer = rest.NewServer(ctx, cfg, l)
+		var s left.BaseServer = rest.NewRestServer(ctx, cfg, l)
 		err = s.ListenAndServe(userApplication)
 		if err != nil {
 			l.Error(err)

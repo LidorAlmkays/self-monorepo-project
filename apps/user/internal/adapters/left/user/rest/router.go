@@ -19,6 +19,6 @@ func (s *server) addRoutes(userApi application.UserPort) http.Handler {
 	})
 
 	h := handlers.NewHandler(s.cfg, s.ctx, s.l, userApi)
-	s.mux.HandleFunc("PUT /user", h.AddUser)
+	s.mux.HandleFunc("POST /user", h.AddUser)
 	return c.Handler(s.mux)
 }

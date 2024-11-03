@@ -1,7 +1,8 @@
-package ports
+package application
 
 import "github.com/LidorAlmkays/self-monorepo-project/apps/frontend_gateway/internal/models"
 
 type UserPort interface {
-	AddUser(models.UserModel) error
+	RegisterUser(models.UserRegisterModel) error
+	LoginUser(models.UserLoginModel) (string, error)
 }
