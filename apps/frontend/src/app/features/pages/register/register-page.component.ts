@@ -8,7 +8,7 @@ import {
 } from 'shared/components/form';
 import { formFields } from './register-format.config';
 import { RegisterStore } from './component_store/register-page.store';
-import { UserModel } from 'shared/models';
+import { UserRegisterModel } from 'shared/models';
 import { UserService } from 'shared/services/user.services';
 
 @Component({
@@ -27,7 +27,7 @@ export class RegisterPageComponent {
     this.registerStoreVm$ = this.registerStore.vm$;
   }
 
-  public onSubmit(event: UserModel) {
+  public onSubmit(event: UserRegisterModel) {
     this.registerStore.registerUser(event);
   }
 }

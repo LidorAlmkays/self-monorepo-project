@@ -19,3 +19,12 @@ func GetRabbitmqConnection(url string, l logger.CustomLogger) (*amqp.Connection,
 	})
 	return conn, err
 }
+
+func CloseRabbitmqConnection(l logger.CustomLogger) error {
+	l.Info("Closing rabbitmq connection with all chanel's")
+	err := conn.Close()
+	if err != nil {
+		return err
+	}
+	return nil
+}

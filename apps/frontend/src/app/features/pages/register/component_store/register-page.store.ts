@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { ComponentStore } from '@ngrx/component-store';
 import { tapResponse } from '@ngrx/operators';
 import { catchError, concatMap, EMPTY, Observable, take, tap } from 'rxjs';
-import { UserModel } from 'shared/models';
+import { UserRegisterModel } from 'shared/models';
 import { UserService } from 'shared/services/user.services';
 
 export interface RegisterState {
@@ -30,20 +30,24 @@ export class RegisterStore extends ComponentStore<RegisterState> {
     super({ isLoading: false });
   }
 
-  readonly registerUser = this.effect((trigger$: Observable<UserModel>) => {
-    return trigger$.pipe(
-      concatMap((userModel) => {
-        this.setIsLoading(true);
-        return this.userService.registerUser(userModel);
-      }),
-      tapResponse({
-        next: (response) => {
-          this.setIsLoading(false);
-        },
-        error: (error) => {
-          this.setIsLoading(false);
-        },
-      })
-    );
-  });
+  readonly registerUser = this.effect(
+    (trigger$: Observable<UserRegisterModel>) => {
+      return trigger$.pipe(
+        concatMap((user) => {
+          this.setIsLoading(true);
+          return this.userService.registerUser(user);
+        }),
+        tapResponse({
+          next: (user) => {
+            this.userService.loginUser(user);
+            this.setIsLoading(false);
+          },
+          error: (error) => {
+            //TODO:(lidor) add an error with toast why failed
+            this.setIsLoading(false);
+          },
+        })
+      );
+    }
+  );
 }

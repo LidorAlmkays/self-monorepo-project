@@ -3,7 +3,7 @@ package rest
 import (
 	"net/http"
 
-	"github.com/LidorAlmkays/self-monorepo-project/apps/frontend_gateway/internal/adapters/frameworks/left/rest/handlers"
+	"github.com/LidorAlmkays/self-monorepo-project/apps/frontend_gateway/internal/adapters/left/rest/handlers"
 	"github.com/rs/cors"
 )
 
@@ -18,6 +18,7 @@ func (s *server) addRoutes() http.Handler {
 	})
 
 	h := handlers.NewHandler(s.cfg, s.ctx, s.l, s.userApi)
-	s.mux.HandleFunc("PUT /user", h.AddUser)
+	s.mux.HandleFunc("POST /user/register", h.RegisterUser)
+	s.mux.HandleFunc("POST /user/login", h.LoginUser)
 	return c.Handler(s.mux)
 }

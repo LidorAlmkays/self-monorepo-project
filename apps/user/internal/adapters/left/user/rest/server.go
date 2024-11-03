@@ -19,15 +19,15 @@ type server struct {
 	l   logger.CustomLogger
 }
 
-func NewServer(ctx context.Context, cfg configs.Config, l logger.CustomLogger) left.BaseServer {
+func NewRestServer(ctx context.Context, cfg configs.Config, l logger.CustomLogger) left.BaseServer {
 	mux := http.NewServeMux()
 	return &server{mux: mux, ctx: ctx, cfg: cfg, l: l}
 }
 
 func (s *server) ListenAndServe(userApi application.UserPort) error {
 	handler := s.addRoutes(userApi)
-	s.l.Message("Server ready to receive REST requests, on port: " + strconv.Itoa(s.cfg.ServiceConfig.Server.Port))
-	err := http.ListenAndServe(":"+strconv.Itoa(s.cfg.ServiceConfig.Server.Port), handler)
+	s.l.Message("Server ready to receive REST requests, on port: " + strconv.Itoa(s.cfg.SharedConfig.UserService.Port))
+	err := http.ListenAndServe(":"+strconv.Itoa(s.cfg.SharedConfig.UserService.Port), handler)
 	if err != nil {
 		return err
 	}
