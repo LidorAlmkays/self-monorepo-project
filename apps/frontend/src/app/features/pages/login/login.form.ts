@@ -6,10 +6,10 @@ import {
 
 export const formFields: AllInputFieldsTypeWithLabel[] = [
   {
-    controlKey: 'username',
-    label: 'UserName:',
+    controlKey: 'email',
+    label: 'Email:',
     inputType: InputFieldTextTypes.text,
-    validators: [Validators.required, Validators.maxLength(64)],
+    validators: [Validators.required, Validators.email],
   },
   {
     controlKey: 'password',

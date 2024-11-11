@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 	"errors"
 
+	"github.com/LidorAlmkays/self-monorepo-project/apps/user/dtos/incoming"
 	"github.com/LidorAlmkays/self-monorepo-project/apps/user/internal/application"
-	"github.com/LidorAlmkays/self-monorepo-project/apps/user/internal/models"
 )
 
 func (h *handler) AddUserConsumer(userApi application.UserPort) error {
@@ -27,7 +27,7 @@ func (h *handler) AddUserConsumer(userApi application.UserPort) error {
 	go func() {
 		defer ch.Close()
 		for d := range userAddMsgs {
-			user := models.UserModel{}
+			user := incoming.AddUserDTO{}
 			h.l.Info("Adding user: " + string(d.Body))
 			err := json.Unmarshal(d.Body, &user)
 			if err != nil {

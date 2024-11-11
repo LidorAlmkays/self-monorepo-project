@@ -8,7 +8,8 @@ import (
 
 	"github.com/LidorAlmkays/self-monorepo-project/apps/frontend_gateway/configs"
 	"github.com/LidorAlmkays/self-monorepo-project/apps/frontend_gateway/internal/adapters/frameworks"
-	"github.com/LidorAlmkays/self-monorepo-project/apps/frontend_gateway/internal/models"
+	userIncoming "github.com/LidorAlmkays/self-monorepo-project/apps/user/dtos/incoming"
+	"github.com/LidorAlmkays/self-monorepo-project/apps/user/dtos/outgoing"
 	"github.com/LidorAlmkays/self-monorepo-project/libs/golang/logger"
 	amqp "github.com/rabbitmq/amqp091-go"
 )
@@ -32,7 +33,7 @@ func NewRabbitmqUserService(ctx context.Context, l logger.CustomLogger, cfg conf
 	return &rabbitmqUserService{ch, ctx, l, cfg}, nil
 }
 
-func (userService *rabbitmqUserService) AddUser(user models.UserRegisterModel) error {
+func (userService *rabbitmqUserService) AddUser(user userIncoming.AddUserDTO) error {
 
 	ctx, cancel := context.WithTimeout(userService.ctx, 5*time.Second)
 	defer cancel()
@@ -41,6 +42,7 @@ func (userService *rabbitmqUserService) AddUser(user models.UserRegisterModel) e
 		userService.l.Error(errors.New("failed to marshal user data, cant send to the rabbitmq"))
 		return err
 	}
+
 	err = userService.ch.PublishWithContext(ctx,
 		userService.cfg.SharedConfig.Rabbitmq.UserExchangeName, // exchange
 		"user-add", // routing key
@@ -56,4 +58,9 @@ func (userService *rabbitmqUserService) AddUser(user models.UserRegisterModel) e
 	}
 
 	return nil
+}
+
+// LoginUser implements UserServiceApi.
+func (userService *rabbitmqUserService) LoginUser(user userIncoming.AuthenticateUserDTO) (*outgoing.UserTokenResponseDTO, error) {
+	panic("unimplemented LoginUser rabbitmq")
 }

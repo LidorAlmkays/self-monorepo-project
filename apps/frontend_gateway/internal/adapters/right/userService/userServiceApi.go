@@ -1,7 +1,11 @@
 package userService
 
-import "github.com/LidorAlmkays/self-monorepo-project/apps/frontend_gateway/internal/models"
+import (
+	"github.com/LidorAlmkays/self-monorepo-project/apps/user/dtos/incoming"
+	"github.com/LidorAlmkays/self-monorepo-project/apps/user/dtos/outgoing"
+)
 
 type UserServiceApi interface {
-	AddUser(user models.UserRegisterModel) error
+	AddUser(user incoming.AddUserDTO) error
+	LoginUser(user incoming.AuthenticateUserDTO) (*outgoing.UserTokenResponseDTO, error)
 }

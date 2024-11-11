@@ -27,12 +27,12 @@ export class UserService {
       .pipe(
         first(),
         tap((cookie) => {
-          console.log('Recived cookie: ' + cookie);
+          console.log('Received cookie: ' + cookie);
           console.log('User logged in.');
         }),
         map(() => {}), // Map the successful response to `void`
         catchError((error) => {
-          console.error('Error registering user:', error);
+          console.error('Error authenticating user:', error);
           return throwError(() => error);
         })
       );
