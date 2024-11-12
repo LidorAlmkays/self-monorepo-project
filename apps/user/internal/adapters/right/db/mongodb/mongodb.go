@@ -6,6 +6,7 @@ import (
 	"time"
 
 	"github.com/LidorAlmkays/self-monorepo-project/apps/user/internal/adapters/right/db"
+	"github.com/LidorAlmkays/self-monorepo-project/libs/golang/logger"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
@@ -14,13 +15,15 @@ type mongoApi struct {
 	url        string
 	ctx        context.Context
 	connection *mongo.Client
+	l          logger.CustomLogger
 }
 
-func NewMongoApi(ctx context.Context, url string, dbName string) db.DbPort {
+func NewMongoApi(ctx context.Context, url string, dbName string, l logger.CustomLogger) db.DbPort {
 	ctx = context.WithValue(ctx, "database", dbName)
 
 	return &mongoApi{
 		url: url,
+		l:   l,
 		ctx: ctx,
 	}
 }

@@ -35,17 +35,18 @@ export class RegisterStore extends ComponentStore<RegisterState> {
       return trigger$.pipe(
         concatMap((user) => {
           this.setIsLoading(true);
-          return this.userService.registerUser(user);
-        }),
-        tapResponse({
-          next: (user) => {
-            this.userService.loginUser(user);
-            this.setIsLoading(false);
-          },
-          error: (error) => {
-            //TODO:(lidor) add an error with toast why failed
-            this.setIsLoading(false);
-          },
+          return this.userService.registerUser(user).pipe(
+            tapResponse({
+              next: (user) => {
+                this.userService.loginUser(user);
+                this.setIsLoading(false);
+              },
+              error: (error) => {
+                //TODO:(lidor) add an error with toast why failed
+                this.setIsLoading(false);
+              },
+            })
+          );
         })
       );
     }

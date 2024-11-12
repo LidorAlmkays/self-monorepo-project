@@ -1,7 +1,15 @@
 import { Injectable } from '@angular/core';
 import { ComponentStore } from '@ngrx/component-store';
 import { tapResponse } from '@ngrx/operators';
-import { catchError, concatMap, EMPTY, Observable, take, tap } from 'rxjs';
+import {
+  catchError,
+  concatMap,
+  EMPTY,
+  Observable,
+  switchMap,
+  take,
+  tap,
+} from 'rxjs';
 import { UserLoginModel, UserRegisterModel } from 'shared/models';
 import { UserService } from 'shared/services/user.services';
 
@@ -32,17 +40,20 @@ export class LoginStore extends ComponentStore<LoginState> {
 
   readonly loginUser = this.effect((trigger$: Observable<UserLoginModel>) => {
     return trigger$.pipe(
-      concatMap((userModel) => {
+      switchMap((userModel) => {
         this.setIsLoading(true);
-        return this.userService.loginUser(userModel);
-      }),
-      tapResponse({
-        next: (response) => {
-          this.setIsLoading(false);
-        },
-        error: (error) => {
-          this.setIsLoading(false);
-        },
+        return this.userService.loginUser(userModel).pipe(
+          tapResponse(
+            (response) => {
+              this.setIsLoading(false);
+              // Handle successful response here
+            },
+            (error) => {
+              this.setIsLoading(false);
+              // Handle error here
+            }
+          )
+        );
       })
     );
   });

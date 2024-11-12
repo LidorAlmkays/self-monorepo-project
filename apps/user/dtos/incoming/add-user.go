@@ -1,11 +1,12 @@
-package models
+package incoming
 
 import "time"
 
-type UserRegisterModel struct {
+type AddUserDTO struct {
 	Name     string    `json:"name"`
 	UserName string    `json:"username"`
 	Password string    `json:"password"`
 	Email    string    `json:"email"`
 	BirthDay time.Time `json:"birthDay"`
+	Role     string    `json:"role"`
 }

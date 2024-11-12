@@ -14,6 +14,7 @@ import (
 	"github.com/LidorAlmkays/self-monorepo-project/apps/user/internal/adapters/left/user/rest"
 	"github.com/LidorAlmkays/self-monorepo-project/apps/user/internal/adapters/right/db/mongodb"
 	"github.com/LidorAlmkays/self-monorepo-project/apps/user/internal/application"
+	"github.com/LidorAlmkays/self-monorepo-project/apps/user/internal/application/auth"
 )
 
 // acts like an init function, but doing it this way i can control the program exit code
@@ -24,11 +25,11 @@ func setUp() error {
 	var err error
 	//open configs
 	var cfg configs.Config = configs.Config{}
-	cfg.SharedConfig, err = libConfigs.GetConfig[libConfigs.SharedConfigs]("./configs/", "shared-configs.yaml")
+	cfg.SharedConfig, err = libConfigs.GetConfig[libConfigs.SharedConfigs]("../configs/", "shared-configs.yaml")
 	if err != nil {
 		return err
 	}
-	cfg.ServiceConfig, err = libConfigs.GetConfig[configs.ServiceConfig]("./configs/", "user-service.yaml")
+	cfg.ServiceConfig, err = libConfigs.GetConfig[configs.ServiceConfig]("../configs/", "user-service.yaml")
 	if err != nil {
 		return err
 	}
@@ -37,7 +38,7 @@ func setUp() error {
 	var l logger.CustomLogger = logger.NewStackedCustomLogger(cfg.SharedConfig.UserService.ProjectName)
 
 	//starting db connection
-	dbConnection := mongodb.NewMongoApi(ctx, cfg.ServiceConfig.Db.Url, cfg.ServiceConfig.Db.Name)
+	dbConnection := mongodb.NewMongoApi(ctx, cfg.ServiceConfig.Db.Url, cfg.ServiceConfig.Db.Name, l)
 	if err != nil {
 		return err
 	}
@@ -47,7 +48,12 @@ func setUp() error {
 	}
 	defer dbConnection.CloseDbConnection()
 
-	userApplication := application.NewUserApi(dbConnection)
+	//TODO:(lidor) move the paper string and number into yaml config
+	authPort := auth.NewPepperSaltAuthenticator("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ",
+		"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ",
+		75, 1, l)
+
+	userApplication := application.NewUserApi(dbConnection, authPort, l)
 
 	systemCh := make(chan error)
 	//start http server

@@ -5,7 +5,8 @@ import (
 	"io"
 	"net/http"
 
-	"github.com/LidorAlmkays/self-monorepo-project/apps/frontend_gateway/internal/models"
+	"github.com/LidorAlmkays/self-monorepo-project/apps/frontend_gateway/dtos/incoming"
+	"github.com/LidorAlmkays/self-monorepo-project/apps/user/dtos/outgoing"
 )
 
 func (h *Handler) RegisterUser(w http.ResponseWriter, r *http.Request) {
@@ -19,7 +20,7 @@ func (h *Handler) RegisterUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	user := models.UserRegisterModel{}
+	user := incoming.AddUserDTO{}
 	// Now decode the byte array into the user struct
 	err = json.Unmarshal(body, &user)
 	if err != nil {
@@ -45,11 +46,30 @@ func (h *Handler) LoginUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	user := models.UserLoginModel{}
+	user := incoming.AuthenticateUserDTO{}
 	// Now decode the byte array into the user struct
 	err = json.Unmarshal(body, &user)
 	if err != nil {
 		http.Error(w, "Invalid request body", http.StatusBadRequest)
+		return
+	}
+
+	token, err := h.uPorts.LoginUser(user)
+
+	if err != nil {
+		http.Error(w, "Failed to get token for user: "+err.Error(), http.StatusUnauthorized)
+		return
+	}
+
+	response := outgoing.UserTokenResponseDTO{Token: token}
+
+	// Set response header to JSON
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
+
+	// Encode and send JSON response
+	if err := json.NewEncoder(w).Encode(response); err != nil {
+		http.Error(w, "Failed to encode response", http.StatusInternalServerError)
 		return
 	}
 
