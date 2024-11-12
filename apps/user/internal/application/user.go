@@ -54,7 +54,18 @@ func (uApi *user) AuthenticateUser(userData incoming.AuthenticateUserDTO) (*outg
 		uApi.l.Error(err)
 		return nil, err
 	}
-
+	user.Password = userData.Password
+	generatedPassword, err := uApi.auth.GenerateSecretPassword(user)
+	if err != nil {
+		uApi.l.Error(errors.New("failed to generate new password to user that authenticated"))
+	} else {
+		user.Password = generatedPassword
+		err = uApi.db.UpdateUserByEmail(userData.Email, user)
+		if err != nil {
+			err = errors.New("failed to update user information in the database when user was authenticated")
+			uApi.l.Error(err)
+		}
+	}
 	var tokenForUser string
 	tokenForUser, err = uApi.auth.GenerateRandomToken()
 	if err != nil {

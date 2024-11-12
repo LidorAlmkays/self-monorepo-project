@@ -9,4 +9,5 @@ type DbPort interface {
 	AddUser(entities.User) error
 	GetUserByEmail(string) (*entities.User, error)
 	GetUserByUsernameAndPassword(string, string) (*entities.User, error)
+	UpdateUserByEmail(email string, newUserData *entities.User) error
 }
