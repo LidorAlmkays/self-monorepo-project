@@ -19,7 +19,7 @@ func (h *Handler) YoutubeVideoDownload(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	// Log the requested URL for debugging
-	h.l.Info("Requested video URL: " + model.Url)
+	h.l.Info("Requested video URL: " + model.VideoUrl)
 
 	// Assume you have a function that determines the filename and video path based on the URL
 	filename := "test.video.mp4"

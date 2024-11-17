@@ -15,4 +15,9 @@ type SharedConfigs struct {
 		Port        int    `yaml:"port" validate:"required,min=1,max=65535" env:"PORT"`
 		Ip          string `yaml:"ip" validate:"required"`
 	} `yaml:"frontend-gateway" validate:"required"`
+	VideoManager struct {
+		ProjectName string `yaml:"project-name"  validate:"required" env:"PROJECT_NAME"`
+		Ip          string `yaml:"ip" validate:"required"`
+		Port        int    `yaml:"port" validate:"required,min=1,max=65535" env:"PORT"`
+	} `yaml:"video-manager" validate:"required"`
 }

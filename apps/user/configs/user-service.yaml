@@ -1,3 +1,6 @@
 db:
   url: 'mongodb://root:password@localhost:27017/'
   name: 'users'
+auth:
+  pepper-letters: 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
+  pepper-length: 4

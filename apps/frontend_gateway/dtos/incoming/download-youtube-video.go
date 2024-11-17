@@ -1,5 +1,6 @@
 package incoming
 
 type DownloadYoutubeVideoDTO struct {
-	Url string `json:"url"`
+	VideoUrl     string `json:"videoUrl"`
+	VideoQuality int    `json:"videoQuality"`
 }

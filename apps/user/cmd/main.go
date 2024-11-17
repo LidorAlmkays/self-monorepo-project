@@ -25,11 +25,11 @@ func setUp() error {
 	var err error
 	//open configs
 	var cfg configs.Config = configs.Config{}
-	cfg.SharedConfig, err = libConfigs.GetConfig[libConfigs.SharedConfigs]("../configs/", "shared-configs.yaml")
+	cfg.SharedConfig, err = libConfigs.GetConfig[libConfigs.SharedConfigs]("../", "shared-configs.yaml")
 	if err != nil {
 		return err
 	}
-	cfg.ServiceConfig, err = libConfigs.GetConfig[configs.ServiceConfig]("../configs/", "user-service.yaml")
+	cfg.ServiceConfig, err = libConfigs.GetConfig[configs.ServiceConfig]("./configs/", "user-service.yaml")
 	if err != nil {
 		return err
 	}
@@ -48,10 +48,9 @@ func setUp() error {
 	}
 	defer dbConnection.CloseDbConnection()
 
-	//TODO:(lidor) move the paper string and number into yaml config
 	authPort := auth.NewPepperSaltAuthenticator("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ",
-		"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ",
-		75, 1, l)
+		cfg.ServiceConfig.Auth.PepperLetters,
+		75, cfg.ServiceConfig.Auth.PepperLength, l)
 
 	userApplication := application.NewUserApi(dbConnection, authPort, l)
 

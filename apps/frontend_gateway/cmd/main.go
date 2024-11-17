@@ -20,7 +20,7 @@ func setUp() error {
 	var err error
 	//open configs
 	var cfg configs.Config = configs.Config{}
-	cfg.SharedConfig, err = libConfigs.GetConfig[libConfigs.SharedConfigs]("./configs/", "shared-configs.yaml")
+	cfg.SharedConfig, err = libConfigs.GetConfig[libConfigs.SharedConfigs]("../", "shared-configs.yaml")
 	if err != nil {
 		return err
 	}
