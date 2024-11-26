@@ -20,5 +20,6 @@ func (s *server) addRoutes() http.Handler {
 	h := handlers.NewHandler(s.cfg, s.ctx, s.l, s.userApi)
 	s.mux.HandleFunc("POST /user/register", h.RegisterUser)
 	s.mux.HandleFunc("POST /user/login", h.LoginUser)
+	s.mux.HandleFunc("POST /youtube-video/download", h.YoutubeVideoDownload)
 	return c.Handler(s.mux)
 }

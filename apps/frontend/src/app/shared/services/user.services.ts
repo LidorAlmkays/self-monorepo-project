@@ -15,8 +15,8 @@ import { UserLoginModel, UserRegisterModel } from 'shared/models';
 
 @Injectable()
 export class UserService {
-  constructor(private readonly http: HttpClient) {}
   private readonly userGatewayUrl = environment.gateway + '/user';
+  constructor(private readonly http: HttpClient) {}
   loginUser(user: UserLoginModel): Observable<void> {
     return this.http
       .post(this.userGatewayUrl + '/login', user, {
