@@ -6,17 +6,24 @@ import (
 )
 
 type YoutubeVideoDownloadDTO struct {
-	VideoUrl     string `json:"VideoUrl" validate:"required,url"`
-	VideoQuality int    `json:"VideoQuality" validate:"quality"`
+	VideoUrl string `json:"VideoUrl" validate:"required,url"`
+
+	// Accept either itag or quality
+	Itag    int    `json:"itag" validate:"omitempty,gt=0"`
+	Quality string `json:"quality" validate:"omitempty,quality"`
 }
 
+// ValidateData validates the fields in the DTO
 func (data *YoutubeVideoDownloadDTO) ValidateData() error {
-	// Validate the Struct
 	validate := validator.New()
-	// Register Custom Validation
+
+	// Register custom validation for "quality"
 	validate.RegisterValidation("quality", validators.QualityValidator)
-	if err := validate.Struct(data); err != nil {
-		return err
+
+	// Validate the DTO
+	err := validate.Struct(data)
+	if err != nil {
+		return err // Return validation errors
 	}
-	return nil
+	return nil // Return nil if validation succeeded
 }

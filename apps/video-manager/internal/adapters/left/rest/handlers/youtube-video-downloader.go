@@ -14,7 +14,7 @@ func (h *Handler) DownloadYoutubeVideo(w http.ResponseWriter, r *http.Request) {
 	// Parse JSON Body
 	var videoInfo incoming.YoutubeVideoDownloadDTO
 	if err := json.NewDecoder(r.Body).Decode(&videoInfo); err != nil {
-		http.Error(w, "Invalid JSON body", http.StatusBadRequest)
+		http.Error(w, "Invalid JSON body, "+err.Error(), http.StatusBadRequest)
 		return
 	}
 
@@ -23,5 +23,5 @@ func (h *Handler) DownloadYoutubeVideo(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	h.youtubeDownloader.DownloadYoutubeVideo(videoInfo.VideoUrl, videoInfo.VideoQuality)
+	h.youtubeDownloader.DownloadYoutubeVideo(videoInfo.VideoUrl, videoInfo.Quality)
 }

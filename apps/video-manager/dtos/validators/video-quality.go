@@ -2,14 +2,30 @@ package validators
 
 import "github.com/go-playground/validator"
 
-// Custom Validation Function
+// QualityValidator ensures the quality is valid as either a YouTube quality string or a number
 func QualityValidator(fl validator.FieldLevel) bool {
-	validQualities := []int{144, 240, 360, 480, 720, 1080, 1440, 2160}
-	value := fl.Field().Int()
-	for _, q := range validQualities {
-		if value == int64(q) {
-			return true
-		}
+	// All possible YouTube quality types
+	var allowedQualities = map[string]struct{}{
+		"144p":   {},
+		"240p":   {},
+		"360p":   {},
+		"480p":   {},
+		"720p":   {},
+		"1080p":  {},
+		"1440p":  {},
+		"2160p":  {},
+		"hd1080": {},
+		"hd720":  {},
+		"hd1440": {},
+		"hd2160": {},
+		"large":  {},
+		"medium": {},
+		"small":  {},
 	}
-	return false
+
+	// Check if the quality is in the allowed qualities
+	quality := fl.Field().String()
+	_, exists := allowedQualities[quality]
+	return exists
+
 }
