@@ -40,6 +40,11 @@ func (r *rabbitmq) ListenAndServe(userApi application.UserPort) error {
 	}
 	defer ch.Close()
 
+	err = ch.ExchangeDeclare(r.cfg.SharedConfig.Rabbitmq.UserExchangeName, "topic", false, false, false, false, amqp.Table{})
+	if err != nil {
+		r.l.Error(errors.New("failed to declare exchange with the name: " + r.cfg.SharedConfig.Rabbitmq.UserExchangeName))
+		return err
+	}
 	_, err = ch.QueueDeclare(
 		r.cfg.SharedConfig.UserService.ProjectName, //main request handler queue name
 		true,  // durable

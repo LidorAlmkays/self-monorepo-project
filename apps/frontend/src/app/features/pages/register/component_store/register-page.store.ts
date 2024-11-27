@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { ComponentStore } from '@ngrx/component-store';
 import { tapResponse } from '@ngrx/operators';
+import { AppPaths } from 'apps/frontend/src/app/app.routes';
 import { catchError, concatMap, EMPTY, Observable, take, tap } from 'rxjs';
 import { UserRegisterModel } from 'shared/models';
 import { UserService } from 'shared/services/user.services';
@@ -26,7 +28,10 @@ export class RegisterStore extends ComponentStore<RegisterState> {
     return newState;
   });
 
-  constructor(private readonly userService: UserService) {
+  constructor(
+    private readonly userService: UserService,
+    private router: Router
+  ) {
     super({ isLoading: false });
   }
 
@@ -40,6 +45,7 @@ export class RegisterStore extends ComponentStore<RegisterState> {
               next: (user) => {
                 this.userService.loginUser(user);
                 this.setIsLoading(false);
+                this.router.navigate(['/' + AppPaths.home()]);
               },
               error: (error) => {
                 //TODO:(lidor) add an error with toast why failed
