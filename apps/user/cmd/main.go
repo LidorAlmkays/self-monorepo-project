@@ -10,7 +10,6 @@ import (
 
 	"github.com/LidorAlmkays/self-monorepo-project/apps/user/configs"
 	"github.com/LidorAlmkays/self-monorepo-project/apps/user/internal/adapters/left"
-	"github.com/LidorAlmkays/self-monorepo-project/apps/user/internal/adapters/left/user/rabbitmq"
 	"github.com/LidorAlmkays/self-monorepo-project/apps/user/internal/adapters/left/user/rest"
 	"github.com/LidorAlmkays/self-monorepo-project/apps/user/internal/adapters/right/db/mongodb"
 	"github.com/LidorAlmkays/self-monorepo-project/apps/user/internal/application"
@@ -64,18 +63,20 @@ func setUp() error {
 		}
 		systemCh <- err
 	}()
-	go func() {
-		s, err := rabbitmq.NewRabbitmqUserConsumer(l, ctx, cfg)
-		if err != nil {
-			l.Error(err)
-			systemCh <- err
-		}
-		err = s.ListenAndServe(userApplication)
-		if err != nil {
-			l.Error(err)
-		}
-		systemCh <- err
-	}()
+
+	//Turn on for rabbitmq connection
+	// go func() {
+	// 	s, err := rabbitmq.NewRabbitmqUserConsumer(l, ctx, cfg)
+	// 	if err != nil {
+	// 		l.Error(err)
+	// 		systemCh <- err
+	// 	}
+	// 	err = s.ListenAndServe(userApplication)
+	// 	if err != nil {
+	// 		l.Error(err)
+	// 	}
+	// 	systemCh <- err
+	// }()
 	err = <-systemCh
 
 	return err

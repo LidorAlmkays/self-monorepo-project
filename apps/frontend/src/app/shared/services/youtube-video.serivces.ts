@@ -29,7 +29,7 @@ export class YoutubeVideoService {
           const contentDisposition = response.headers.get(
             'Content-Disposition'
           );
-          console.log(contentDisposition);
+
           const filename = contentDisposition
             ? this.getFilenameFromContentDisposition(contentDisposition)
             : 'downloaded-video.mp4'; // Default filename if none found

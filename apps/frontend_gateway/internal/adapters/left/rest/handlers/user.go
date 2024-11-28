@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"io"
 	"net/http"
+	"time"
 
 	"github.com/LidorAlmkays/self-monorepo-project/apps/frontend_gateway/dtos/incoming"
 	"github.com/LidorAlmkays/self-monorepo-project/apps/user/dtos/outgoing"
@@ -60,6 +61,15 @@ func (h *Handler) LoginUser(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Failed to get token for user: "+err.Error(), http.StatusUnauthorized)
 		return
 	}
+	cookie := &http.Cookie{Name: "session_id",
+		Value:   token,
+		Secure:  true,
+		Expires: time.Now().UTC().Add(1 * time.Hour),
+		Path: "/",
+		Domain: "localhost",
+
+	}
+	http.SetCookie(w, cookie)
 
 	response := outgoing.UserTokenResponseDTO{Token: token}
 

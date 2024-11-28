@@ -3,6 +3,7 @@ import { RegisterPageComponent } from './features/pages/register/register-page.c
 import { LoginPageComponent } from './features/pages/login/login-page.component';
 import { DownloadYoutubeVideoPageComponent } from './features/pages/download_youtube_video/download-youtube-video-page.component';
 import { HomePageComponent } from './features/pages/home/home-page.component';
+import { FormDiartyGuard } from './core/guards/form.diarty.guard';
 
 export const AppPaths = {
   register: () => 'register',
@@ -14,10 +15,12 @@ export const AppPaths = {
 export const appRoutes: Route[] = [
   {
     path: AppPaths.register(),
+    canDeactivate: [FormDiartyGuard],
     component: RegisterPageComponent,
   },
   {
     path: AppPaths.login(),
+    canDeactivate: [FormDiartyGuard],
     component: LoginPageComponent,
   },
   {

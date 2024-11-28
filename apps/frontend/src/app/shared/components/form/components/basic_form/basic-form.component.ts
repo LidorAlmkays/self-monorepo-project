@@ -6,7 +6,7 @@ import {
   Input,
   Output,
 } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import {
   AllInputFieldsTypeWithLabel,
   InputFieldTextTypes,
@@ -29,6 +29,30 @@ export class BasicFormComponent implements AfterViewInit {
   constructor(private readonly cdr: ChangeDetectorRef) {}
   ngAfterViewInit(): void {
     this.cdr.detectChanges();
+  }
+
+  isFormValuesEmpty(): boolean {
+    return this.doesFormHasValueInsideIt(this.form);
+  }
+
+  doesFormHasValueInsideIt(form: FormGroup | FormArray): boolean {
+    for (const key of Object.keys(form.controls)) {
+      const control = form.get(key);
+      if (control instanceof FormControl) {
+        if (
+          control.value !== null &&
+          control.value !== '' &&
+          control.value !== undefined
+        ) {
+          return false;
+        }
+      } else if (control instanceof FormGroup || control instanceof FormArray) {
+        if (this.doesFormHasValueInsideIt(control)) {
+          return false;
+        }
+      }
+    }
+    return true;
   }
 
   submit() {
