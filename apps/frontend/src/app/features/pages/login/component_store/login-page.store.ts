@@ -3,7 +3,10 @@ import { Router } from '@angular/router';
 import { ComponentStore } from '@ngrx/component-store';
 import { tapResponse } from '@ngrx/operators';
 import { AppPaths, appRoutes } from 'apps/frontend/src/app/app.routes';
+import { MessageService } from 'primeng/api';
 import { Observable, switchMap } from 'rxjs';
+import { CustomToastsKeys } from 'shared/components';
+import { SeverityTypes } from 'shared/components/custom_toasts/enums/severity-types.enum';
 import { UserLoginModel } from 'shared/models';
 import { UserService } from 'shared/services/user.services';
 
@@ -30,7 +33,8 @@ export class LoginStore extends ComponentStore<LoginState> {
 
   constructor(
     private readonly userService: UserService,
-    private router: Router
+    private readonly router: Router,
+    private readonly messageService: MessageService
   ) {
     super({ isLoading: false });
   }
@@ -44,11 +48,21 @@ export class LoginStore extends ComponentStore<LoginState> {
             (response) => {
               this.setIsLoading(false);
               this.router.navigate(['/' + AppPaths.home()]);
-              //TODO:(lidor)Add toast to handle successful login.
+              this.messageService.add({
+                key: CustomToastsKeys.BasicToast,
+                severity: SeverityTypes.SUCCESS,
+                summary: 'Login Successfully',
+                detail: 'User successfully logged in.',
+              });
             },
             (error) => {
               this.setIsLoading(false);
-              //TODO:(lidor)Add toast to handle error on login.
+              this.messageService.add({
+                key: CustomToastsKeys.BasicToast,
+                severity: SeverityTypes.ERROR,
+                summary: 'Login Failed',
+                detail: 'User failed to login in.',
+              });
             }
           )
         );

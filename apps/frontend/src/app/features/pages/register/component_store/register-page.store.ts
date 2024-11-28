@@ -3,7 +3,10 @@ import { Router } from '@angular/router';
 import { ComponentStore } from '@ngrx/component-store';
 import { tapResponse } from '@ngrx/operators';
 import { AppPaths } from 'apps/frontend/src/app/app.routes';
+import { MessageService } from 'primeng/api';
 import { catchError, concatMap, EMPTY, Observable, take, tap } from 'rxjs';
+import { CustomToastsKeys } from 'shared/components';
+import { SeverityTypes } from 'shared/components/custom_toasts/enums/severity-types.enum';
 import { UserRegisterModel } from 'shared/models';
 import { UserService } from 'shared/services/user.services';
 
@@ -30,7 +33,8 @@ export class RegisterStore extends ComponentStore<RegisterState> {
 
   constructor(
     private readonly userService: UserService,
-    private router: Router
+    private router: Router,
+    private readonly messageService: MessageService
   ) {
     super({ isLoading: false });
   }
@@ -46,9 +50,20 @@ export class RegisterStore extends ComponentStore<RegisterState> {
                 this.userService.loginUser(user);
                 this.setIsLoading(false);
                 this.router.navigate(['/' + AppPaths.home()]);
+                this.messageService.add({
+                  key: CustomToastsKeys.BasicToast,
+                  severity: SeverityTypes.SUCCESS,
+                  summary: 'Register Successfully',
+                  detail: 'User successfully register in.',
+                });
               },
               error: (error) => {
-                //TODO:(lidor) add an error with toast why failed
+                this.messageService.add({
+                  key: CustomToastsKeys.BasicToast,
+                  severity: SeverityTypes.ERROR,
+                  summary: 'Register Failed',
+                  detail: 'User failed to register.',
+                });
                 this.setIsLoading(false);
               },
             })

@@ -9,9 +9,11 @@ import { environment } from '../environments/environment.production';
 import { provideRouterStore, routerReducer } from '@ngrx/router-store';
 import { CustomSerializer } from './features/ngrx_store/router_serializers/custom-route-serializer';
 import { CredentialsInterceptor } from './core/intersepters/credentials-interceptor';
+import { MessageService } from 'primeng/api';
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    MessageService,
     provideAnimations(),
     provideHttpClient(withInterceptors([CredentialsInterceptor])),
     provideZoneChangeDetection({ eventCoalescing: true }),
