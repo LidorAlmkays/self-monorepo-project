@@ -4,9 +4,9 @@ toolchain go1.23.0
 
 use (
 	./apps/frontend_gateway
-	./apps/rabbitmq_initializer_service
 	./apps/user
 	./apps/video-manager
 	./libs/golang/configs
+	./libs/golang/enums
 	./libs/golang/logger
 )

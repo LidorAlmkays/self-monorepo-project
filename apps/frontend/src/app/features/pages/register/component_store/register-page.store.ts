@@ -1,9 +1,15 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { ComponentStore } from '@ngrx/component-store';
 import { tapResponse } from '@ngrx/operators';
-import { catchError, concatMap, EMPTY, Observable, take, tap } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { MessageService } from 'primeng/api';
+import { concatMap, Observable } from 'rxjs';
+import { CustomToastsKeys } from 'shared/components';
+import { SeverityTypes } from 'shared/components/custom_toasts/enums/severity-types.enum';
 import { UserRegisterModel } from 'shared/models';
 import { UserService } from 'shared/services/user.services';
+import { userRegisterActions } from '../../../ngrx_store/user/actions/user-register.action';
 
 export interface RegisterState {
   isLoading: boolean;
@@ -26,7 +32,12 @@ export class RegisterStore extends ComponentStore<RegisterState> {
     return newState;
   });
 
-  constructor(private readonly userService: UserService) {
+  constructor(
+    private readonly store: Store,
+    private readonly userService: UserService,
+    private router: Router,
+    private readonly messageService: MessageService
+  ) {
     super({ isLoading: false });
   }
 
@@ -38,11 +49,24 @@ export class RegisterStore extends ComponentStore<RegisterState> {
           return this.userService.registerUser(user).pipe(
             tapResponse({
               next: (user) => {
-                this.userService.loginUser(user);
+                this.userService.loginUser(user).forEach(() => {
+                  this.store.dispatch(userRegisterActions.loggedIn());
+                });
                 this.setIsLoading(false);
+                this.messageService.add({
+                  key: CustomToastsKeys.BasicToast,
+                  severity: SeverityTypes.SUCCESS,
+                  summary: 'Register Successfully',
+                  detail: 'User successfully register in.',
+                });
               },
               error: (error) => {
-                //TODO:(lidor) add an error with toast why failed
+                this.messageService.add({
+                  key: CustomToastsKeys.BasicToast,
+                  severity: SeverityTypes.ERROR,
+                  summary: 'Register Failed',
+                  detail: 'User failed to register.',
+                });
                 this.setIsLoading(false);
               },
             })

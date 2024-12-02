@@ -6,7 +6,7 @@ import {
   Input,
   Output,
 } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import {
   AllInputFieldsTypeWithLabel,
   InputFieldTextTypes,
@@ -31,7 +31,55 @@ export class BasicFormComponent implements AfterViewInit {
     this.cdr.detectChanges();
   }
 
-  submit() {
+  public clearForm() {
+    this._clearForm(this.form);
+    this.cdr.detectChanges();
+  }
+
+  public isFormValuesEmpty(): boolean {
+    return this._isFormValuesEmpty(this.form);
+  }
+
+  private _isFormValuesEmpty(form: FormGroup | FormArray): boolean {
+    for (const key of Object.keys(form.controls)) {
+      const control = form.get(key);
+      if (control instanceof FormControl) {
+        if (
+          control.value !== null &&
+          control.value !== '' &&
+          control.value !== undefined
+        ) {
+          return false;
+        }
+      } else if (control instanceof FormGroup || control instanceof FormArray) {
+        if (this._isFormValuesEmpty(control)) {
+          return false;
+        }
+      }
+    }
+    return true;
+  }
+
+  private _clearForm(form: FormGroup): void {
+    Object.keys(form.controls).forEach((key) => {
+      const control = form.get(key);
+
+      if (control) {
+        // Null check to ensure control exists
+        if (control instanceof FormGroup) {
+          this._clearForm(control); // Recursive call for nested FormGroups
+        } else if (control instanceof FormArray) {
+          control.clear(); // Clear the FormArray
+        } else {
+          control.setValue(null); // Reset individual control value
+          control.markAsPristine();
+          control.markAsUntouched();
+        }
+      }
+    });
+  }
+
+  public submit() {
     this.onSubmit.emit(this.form.value);
   }
 }

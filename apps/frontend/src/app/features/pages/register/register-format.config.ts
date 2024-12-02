@@ -3,7 +3,6 @@ import {
   AllInputFieldsTypeWithLabel,
   InputFieldTextTypes,
 } from 'shared/components';
-import { ageValidator } from 'shared/components/form/custom_validators';
 
 export const formFields: AllInputFieldsTypeWithLabel[] = [
   {

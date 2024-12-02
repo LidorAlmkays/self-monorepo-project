@@ -4,33 +4,32 @@ import { environment } from 'apps/frontend/src/environments/environment';
 import {
   catchError,
   first,
-  map,
   Observable,
   of,
   switchMap,
   tap,
   throwError,
 } from 'rxjs';
+import { UserTokenResponseDto } from 'shared/dtos';
 import { UserLoginModel, UserRegisterModel } from 'shared/models';
 
 @Injectable()
 export class UserService {
   private readonly userGatewayUrl = environment.gateway + '/user';
   constructor(private readonly http: HttpClient) {}
-  loginUser(user: UserLoginModel): Observable<void> {
+  loginUser(user: UserLoginModel): Observable<UserTokenResponseDto> {
     return this.http
-      .post(this.userGatewayUrl + '/login', user, {
+      .post<UserTokenResponseDto>(this.userGatewayUrl + '/login', user, {
         headers: {
           'Content-Type': 'application/json',
         },
       })
       .pipe(
         first(),
-        tap((cookie) => {
-          console.log('Received cookie: ' + cookie);
+        tap((cookie: UserTokenResponseDto) => {
           console.log('User logged in.');
+          return cookie;
         }),
-        map(() => {}), // Map the successful response to `void`
         catchError((error) => {
           console.error('Error authenticating user:', error);
           return throwError(() => error);

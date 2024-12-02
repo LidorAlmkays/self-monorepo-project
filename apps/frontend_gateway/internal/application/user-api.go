@@ -4,6 +4,7 @@ import (
 	"github.com/LidorAlmkays/self-monorepo-project/apps/frontend_gateway/dtos/incoming"
 	"github.com/LidorAlmkays/self-monorepo-project/apps/frontend_gateway/internal/adapters/right/userService"
 	userServiceIncoming "github.com/LidorAlmkays/self-monorepo-project/apps/user/dtos/incoming"
+	"github.com/LidorAlmkays/self-monorepo-project/libs/golang/enums"
 	"github.com/LidorAlmkays/self-monorepo-project/libs/golang/logger"
 )
 
@@ -27,7 +28,7 @@ func (uApi *userApi) RegisterUser(user incoming.AddUserDTO) error {
 		Password: user.Password,
 		BirthDay: user.BirthDay,
 		Name:     user.Name,
-		Role:     "user",
+		Role:     enums.User,
 	}
 	err := uApi.userService.AddUser(userToRegister)
 	if err != nil {

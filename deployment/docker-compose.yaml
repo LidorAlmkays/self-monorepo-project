@@ -1,5 +1,3 @@
-version: '3.8'
-
 include:
   # - path:
   #     - templates/frontend.yaml
@@ -11,8 +9,8 @@ include:
   #     - templates/user-service.yaml
   # - path:
   #     - templates/rabbitmq-initializer-service.yaml
-  - path:
-      - templates/rabbitmq.yaml
+  # - path:
+  #     - templates/rabbitmq.yaml
 
 networks:
   common-network:
