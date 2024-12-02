@@ -4,6 +4,7 @@ import { FeaturesModule } from './features/features.module';
 import { CardModule } from 'primeng/card';
 import { CustomToastsModule } from 'shared/components';
 import { CoreModule } from './core/core.module';
+import { CustomDialogsComponent } from 'shared/components/custom_dialogs/custom-dialogs.component';
 
 @Component({
   standalone: true,
@@ -13,6 +14,7 @@ import { CoreModule } from './core/core.module';
     CardModule,
     CustomToastsModule,
     CoreModule,
+    CustomDialogsComponent,
   ],
 
   selector: 'app-root',

@@ -73,7 +73,6 @@ func (uApi *user) AuthenticateUser(userData incoming.AuthenticateUserDTO) (*outg
 		return nil, err
 	}
 
-	//TODO:(lidor) Change the role to not be only guest
 	return &outgoing.UserTokenResponseDTO{
 		Token: tokenForUser,
 		Role:  user.Role,

@@ -1,29 +1,25 @@
 import { Injectable } from '@angular/core';
-import {
-  CanDeactivate,
-  GuardResult,
-  MaybeAsync,
-  Router,
-} from '@angular/router';
+import { CanActivate, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
-export class AuthenticateUserTokenGuard implements CanDeactivate<unknown> {
+export class AuthenticateUserTokenGuard implements CanActivate {
   constructor(
     private readonly router: Router,
     private readonly cookieService: CookieService
   ) {}
 
-  canDeactivate(): MaybeAsync<GuardResult> {
-    const session_id = this.cookieService.get('session_id'); // Replace 'token' with your cookie name
+  canActivate(): Observable<boolean> | Promise<boolean> | boolean {
+    const session_id = this.cookieService.get('session_id'); // Replace 'session_id' with your cookie name
 
-    console.log('Found token:' + session_id);
+    console.debug('Found token:' + session_id);
     if (!session_id) {
       this.router.navigate(['/login']); // Redirect to login or a fallback route
-      return false; // Deny navigation
+      return false; // Deny access
     }
-    return true;
+    return true; // Allow access
   }
 }

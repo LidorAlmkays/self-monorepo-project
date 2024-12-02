@@ -3,23 +3,28 @@ import { provideRouter } from '@angular/router';
 import { appRoutes } from './app.routes';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
-import { provideStore } from '@ngrx/store';
+import { provideState, provideStore } from '@ngrx/store';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment.production';
 import { provideRouterStore, routerReducer } from '@ngrx/router-store';
 import { CustomSerializer } from './features/ngrx_store/router_serializers/custom-route-serializer';
 import { CredentialsInterceptor } from './core/intersepters/credentials-interceptor';
-import { MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { userFeature } from './features/ngrx_store/user/user.state';
+import { EffectsModule, provideEffects } from '@ngrx/effects';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     MessageService,
+    ConfirmationService,
     provideAnimations(),
     provideHttpClient(withInterceptors([CredentialsInterceptor])),
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(appRoutes),
     provideStore({ router: routerReducer }),
+    provideState(userFeature),
     provideRouterStore({ serializer: CustomSerializer }),
+    provideEffects(),
     provideStoreDevtools({
       maxAge: 25, // Retains last 25 states
       logOnly: !environment.production, // Restrict extension to log-only mode

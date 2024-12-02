@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { ComponentStore } from '@ngrx/component-store';
 import { tapResponse } from '@ngrx/operators';
-import { AppPaths } from 'apps/frontend/src/app/app.routes';
+import { Store } from '@ngrx/store';
 import { MessageService } from 'primeng/api';
-import { catchError, concatMap, EMPTY, Observable, take, tap } from 'rxjs';
+import { concatMap, Observable } from 'rxjs';
 import { CustomToastsKeys } from 'shared/components';
 import { SeverityTypes } from 'shared/components/custom_toasts/enums/severity-types.enum';
 import { UserRegisterModel } from 'shared/models';
 import { UserService } from 'shared/services/user.services';
+import { userRegisterActions } from '../../../ngrx_store/user/actions/user-register.action';
 
 export interface RegisterState {
   isLoading: boolean;
@@ -32,6 +33,7 @@ export class RegisterStore extends ComponentStore<RegisterState> {
   });
 
   constructor(
+    private readonly store: Store,
     private readonly userService: UserService,
     private router: Router,
     private readonly messageService: MessageService
@@ -47,9 +49,10 @@ export class RegisterStore extends ComponentStore<RegisterState> {
           return this.userService.registerUser(user).pipe(
             tapResponse({
               next: (user) => {
-                this.userService.loginUser(user);
+                this.userService.loginUser(user).forEach(() => {
+                  this.store.dispatch(userRegisterActions.loggedIn());
+                });
                 this.setIsLoading(false);
-                this.router.navigate(['/' + AppPaths.home()]);
                 this.messageService.add({
                   key: CustomToastsKeys.BasicToast,
                   severity: SeverityTypes.SUCCESS,

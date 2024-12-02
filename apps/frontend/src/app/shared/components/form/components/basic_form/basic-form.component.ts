@@ -31,11 +31,16 @@ export class BasicFormComponent implements AfterViewInit {
     this.cdr.detectChanges();
   }
 
-  isFormValuesEmpty(): boolean {
-    return this.doesFormHasValueInsideIt(this.form);
+  public clearForm() {
+    this._clearForm(this.form);
+    this.cdr.detectChanges();
   }
 
-  doesFormHasValueInsideIt(form: FormGroup | FormArray): boolean {
+  public isFormValuesEmpty(): boolean {
+    return this._isFormValuesEmpty(this.form);
+  }
+
+  private _isFormValuesEmpty(form: FormGroup | FormArray): boolean {
     for (const key of Object.keys(form.controls)) {
       const control = form.get(key);
       if (control instanceof FormControl) {
@@ -47,7 +52,7 @@ export class BasicFormComponent implements AfterViewInit {
           return false;
         }
       } else if (control instanceof FormGroup || control instanceof FormArray) {
-        if (this.doesFormHasValueInsideIt(control)) {
+        if (this._isFormValuesEmpty(control)) {
           return false;
         }
       }
@@ -55,7 +60,26 @@ export class BasicFormComponent implements AfterViewInit {
     return true;
   }
 
-  submit() {
+  private _clearForm(form: FormGroup): void {
+    Object.keys(form.controls).forEach((key) => {
+      const control = form.get(key);
+
+      if (control) {
+        // Null check to ensure control exists
+        if (control instanceof FormGroup) {
+          this._clearForm(control); // Recursive call for nested FormGroups
+        } else if (control instanceof FormArray) {
+          control.clear(); // Clear the FormArray
+        } else {
+          control.setValue(null); // Reset individual control value
+          control.markAsPristine();
+          control.markAsUntouched();
+        }
+      }
+    });
+  }
+
+  public submit() {
     this.onSubmit.emit(this.form.value);
   }
 }
