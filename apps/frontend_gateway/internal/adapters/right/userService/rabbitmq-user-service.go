@@ -22,7 +22,7 @@ type rabbitmqUserService struct {
 }
 
 func NewRabbitmqUserService(ctx context.Context, l logger.CustomLogger, cfg configs.Config) (UserServiceApi, error) {
-	conn, err := frameworks.GetRabbitmqConnection(cfg.SharedConfig.Rabbitmq.Url, l)
+	conn, err := frameworks.GetRabbitmqConnection(cfg.ServiceConfig.Rabbitmq.Url, l)
 	if err != nil {
 		return nil, err
 	}
@@ -44,7 +44,7 @@ func (userService *rabbitmqUserService) AddUser(user userIncoming.AddUserDTO) er
 	}
 
 	err = userService.ch.PublishWithContext(ctx,
-		userService.cfg.SharedConfig.Rabbitmq.UserExchangeName, // exchange
+		userService.cfg.ServiceConfig.Rabbitmq.UserExchangeName, // exchange
 		"user-add", // routing key
 		false,      // mandatory
 		false,      // immediate

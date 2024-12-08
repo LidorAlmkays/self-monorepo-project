@@ -10,7 +10,6 @@ import (
 	"github.com/LidorAlmkays/self-monorepo-project/apps/video-manager/internal/adapters/left/rest"
 	youtubevideodownloader "github.com/LidorAlmkays/self-monorepo-project/apps/video-manager/internal/adapters/right/youtube-video-downloader"
 	"github.com/LidorAlmkays/self-monorepo-project/apps/video-manager/internal/application"
-	libConfigs "github.com/LidorAlmkays/self-monorepo-project/libs/golang/configs"
 	"github.com/LidorAlmkays/self-monorepo-project/libs/golang/logger"
 )
 
@@ -22,20 +21,19 @@ func setUp() error {
 	var err error
 
 	//open configs
-	var cfg configs.Config = configs.Config{}
-	cfg.SharedConfig, err = libConfigs.GetConfig[libConfigs.SharedConfigs]("../", "shared-configs.yaml")
+	cfg, err := configs.SetUpConfig(true)
 	if err != nil {
 		return err
 	}
 
 	//create project custom logger
-	var l logger.CustomLogger = logger.NewStackedCustomLogger(cfg.SharedConfig.VideoManager.ProjectName)
+	var l logger.CustomLogger = logger.NewStackedCustomLogger(cfg.BaseConfig.ProjectName)
 
 	//start http server to talk with frontend
-	var s left.BaseServer = rest.NewRestServer(ctx, cfg, l)
+	var s left.BaseServer = rest.NewRestServer(ctx, *cfg, l)
 
-	youtubevideodownloader := youtubevideodownloader.NewRestVideoDownloader(ctx, cfg, l)
-	err = s.ListenAndServe(application.NewYoutubeDownloaderApi(ctx, cfg, l, youtubevideodownloader))
+	youtubevideodownloader := youtubevideodownloader.NewRestVideoDownloader(ctx, *cfg, l)
+	err = s.ListenAndServe(application.NewYoutubeDownloaderApi(ctx, *cfg, l, youtubevideodownloader))
 	if err != nil {
 		return err
 	}

@@ -2,27 +2,42 @@ package configs
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 
 	"github.com/go-playground/validator"
 )
 
-func GetConfig[T any](configFolderPath string, configFileName string) (*T, error) {
+func GetConfig[T any](fileFullPath string, fileType ConfigTypes) (*T, error) {
 	var cfg *T
 	var err error
-	if configFolderPath != "" {
-		cfg, err = openYamlConfig[T](configFolderPath + configFileName)
-	}
-	if err != nil {
-		return nil, err
-	}
 
-	err = loadEnvFile(configFolderPath)
-	if err != nil {
-		fmt.Print("No env file was found.")
+	switch fileType {
+	case YAML:
+		{
+			if fileFullPath != "" {
+				cfg, err = openYamlConfig[T](fileFullPath)
+			}
+			if err != nil {
+				fmt.Print("No yaml file was found.")
+				return nil, err
+			}
+		}
+	case ENV:
+		{
+			err = loadConfigFromEnvOrFile(cfg, fileFullPath)
+			if err != nil {
+				fmt.Print(err.Error())
+				return nil, err
+			}
+		}
+	default:
+		{
+			err := errors.New("no config file type was selected, ENV is also path variables")
+			fmt.Print(err)
+			return nil, err
+		}
 	}
-
-	loadConfigFromEnv(cfg)
 
 	validate := validator.New()
 

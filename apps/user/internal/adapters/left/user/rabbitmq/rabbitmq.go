@@ -25,7 +25,7 @@ type rabbitmq struct {
 func NewRabbitmqUserConsumer(l logger.CustomLogger,
 	ctx context.Context,
 	cfg configs.Config) (left.BaseServer, error) {
-	conn, err := frameworks.GetRabbitmqConnection(cfg.SharedConfig.Rabbitmq.Url, l)
+	conn, err := frameworks.GetRabbitmqConnection(cfg.ServiceConfig.Rabbitmq.Url, l)
 	if err != nil {
 		return nil, err
 	}
@@ -40,28 +40,28 @@ func (r *rabbitmq) ListenAndServe(userApi application.UserPort) error {
 	}
 	defer ch.Close()
 
-	err = ch.ExchangeDeclare(r.cfg.SharedConfig.Rabbitmq.UserExchangeName, "topic", false, false, false, false, amqp.Table{})
+	err = ch.ExchangeDeclare(r.cfg.ServiceConfig.Rabbitmq.UserExchangeName, "topic", false, false, false, false, amqp.Table{})
 	if err != nil {
-		r.l.Error(errors.New("failed to declare exchange with the name: " + r.cfg.SharedConfig.Rabbitmq.UserExchangeName))
+		r.l.Error(errors.New("failed to declare exchange with the name: " + r.cfg.ServiceConfig.Rabbitmq.UserExchangeName))
 		return err
 	}
 	_, err = ch.QueueDeclare(
-		r.cfg.SharedConfig.UserService.ProjectName, //main request handler queue name
-		true,  // durable
-		false, // delete when unused
-		false, // exclusive
-		false, // no-wait
-		nil,   // arguments
+		r.cfg.BaseConfig.ProjectName, //main request handler queue name
+		true,                         // durable
+		false,                        // delete when unused
+		false,                        // exclusive
+		false,                        // no-wait
+		nil,                          // arguments
 	)
 	if err != nil {
-		r.l.Error(errors.New("failed to declare queue with the name: " + r.cfg.SharedConfig.UserService.ProjectName))
+		r.l.Error(errors.New("failed to declare queue with the name: " + r.cfg.BaseConfig.ProjectName))
 		return err
 	}
 	routingKeys := []string{"user-add", "user-update", "user-get", "user-delete"}
 	for _, routingKey := range routingKeys {
-		err = ch.QueueBind(r.cfg.SharedConfig.UserService.ProjectName, routingKey, r.cfg.SharedConfig.Rabbitmq.UserExchangeName, false, amqp.Table{})
+		err = ch.QueueBind(r.cfg.BaseConfig.ProjectName, routingKey, r.cfg.ServiceConfig.Rabbitmq.UserExchangeName, false, amqp.Table{})
 		if err != nil {
-			r.l.Error(errors.New("failed to bind queue with the name: " + r.cfg.SharedConfig.UserService.ProjectName + " ,to the exchanged named: " + r.cfg.SharedConfig.Rabbitmq.UserExchangeName))
+			r.l.Error(errors.New("failed to bind queue with the name: " + r.cfg.BaseConfig.ProjectName + " ,to the exchanged named: " + r.cfg.ServiceConfig.Rabbitmq.UserExchangeName))
 			return err
 		}
 	}
