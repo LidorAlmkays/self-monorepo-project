@@ -7,9 +7,9 @@ WORKDIR /app
 # Copy the source code
 COPY ./apps/frontend_gateway .
 
-COPY ./deployment/configs/shared-configs.yaml /app/configs/shared-configs.yaml
+COPY ./deployment_docker_compose/configs/shared-configs.yaml /app/configs/shared-configs.yaml
 
-COPY ./deployment/configs/frontend-gateway.yaml /app/configs/frontend-gateway.yaml
+COPY ./deployment_docker_compose/configs/frontend-gateway.yaml /app/configs/frontend-gateway.yaml
 
 RUN go mod download
 

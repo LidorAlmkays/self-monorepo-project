@@ -1,3 +1,0 @@
-rabbitmq:
-  user-exchange-name: 'user'
-  url: 'amqp://admin:admin@rabbitmq:5672/'
