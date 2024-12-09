@@ -14,28 +14,25 @@ func SetUpConfig(programMode enums.ProgramMode) (*Config, error) {
 	var cfg *Config = &Config{}
 
 	confType := libConfigs.ENV
-	stringFiller := "env"
 	switch programMode {
 	case enums.DevelopmentMode:
 		{
-			stringFiller = "yaml"
 			confType = libConfigs.YAML
 		}
 	case enums.ProductionMode:
 		{
 			confType = libConfigs.ENV
-			stringFiller = "env"
 		}
 	default:
 		{
 			return nil, errors.New("received an invalid program mode")
 		}
 	}
-	cfg.BaseConfig, err = libConfigs.GetConfig(&project_base_info.UserService{}, "../config_files/"+stringFiller+"s/user-service."+stringFiller, confType)
+	cfg.BaseConfig, err = libConfigs.GetConfig(&project_base_info.UserService{}, "../configs/"+confType.String()+"/project_base_info/user-service."+confType.String(), confType)
 	if err != nil {
 		return nil, err
 	}
-	cfg.ServiceConfig, err = libConfigs.GetConfig(&ServiceConfig{}, "./configs/."+stringFiller, confType)
+	cfg.ServiceConfig, err = libConfigs.GetConfig(&ServiceConfig{}, "../configs/"+confType.String()+"/project_personal_info/user-service."+confType.String(), confType)
 	if err != nil {
 		return nil, err
 	}

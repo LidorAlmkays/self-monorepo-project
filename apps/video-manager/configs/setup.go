@@ -31,7 +31,7 @@ func SetUpConfig(programMode enums.ProgramMode) (*Config, error) {
 			return nil, errors.New("received an invalid program mode")
 		}
 	}
-	cfg.BaseConfig, err = libConfigs.GetConfig(&project_base_info.VideoManager{}, "../config_files/"+stringFiller+"s/video-manager."+stringFiller, confType)
+	cfg.BaseConfig, err = libConfigs.GetConfig(&project_base_info.VideoManager{}, "../configs/"+stringFiller+"s/video-manager."+stringFiller, confType)
 	if err != nil {
 		return nil, err
 	}

@@ -3,7 +3,11 @@ services:
     container_name: frontend-gateway
     restart: unless-stopped
     build:
-      context: '../../'
+      context: '../../../'
       dockerfile: 'apps/frontend_gateway/Dockerfile'
+    env_file:
+      - apps/configs/envs/frontend-gateway.env
+      - apps/configs/envs/user-service.env
+
     networks:
       - common-network

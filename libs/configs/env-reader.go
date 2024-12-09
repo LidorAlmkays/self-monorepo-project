@@ -17,14 +17,32 @@ func loadConfigFromEnvOrFile(cfg interface{}, configFolderPath string) error {
 		fmt.Println("No .env file was found. Falling back to environment variables.")
 	}
 
-	v := reflect.ValueOf(cfg).Elem()
-	t := v.Type()
+	v := reflect.ValueOf(cfg)
+	if v.Kind() == reflect.Ptr {
+		v = v.Elem()
+	}
 
+	if v.Kind() != reflect.Struct {
+		return errors.New("cfg must be a pointer to a struct")
+	}
+
+	t := v.Type()
 	var missingFields []string
 
 	for i := 0; i < t.NumField(); i++ {
 		field := t.Field(i)
 		value := v.Field(i)
+
+		// Handle embedded structs recursively
+		if value.Kind() == reflect.Struct {
+			if value.CanAddr() {
+				err := loadConfigFromEnvOrFile(value.Addr().Interface(), configFolderPath)
+				if err != nil {
+					return err
+				}
+			}
+			continue
+		}
 
 		// Process the `env` tag
 		envTag := field.Tag.Get("env")

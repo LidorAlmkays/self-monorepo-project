@@ -5,7 +5,7 @@ FROM golang:latest AS build
 WORKDIR /app
 
 # Copy the source code
-COPY ./apps/frontend_gateway .
+COPY ./apps/video-manager .
 
 RUN go mod download
 
