@@ -34,5 +34,3 @@ networks:
   common-network:
     driver: bridge
 
-volumes:
-  mongo_data:
