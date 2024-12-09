@@ -24,7 +24,7 @@ type restUserService struct {
 }
 
 func NewRestUserService(ctx context.Context, l logger.CustomLogger, cfg configs.Config) (UserServiceApi, error) {
-	userServiceUrl := "http://" + cfg.SharedConfig.UserService.Ip + ":" + strconv.Itoa(cfg.SharedConfig.UserService.Port)
+	userServiceUrl := "http://" + cfg.UserServiceConfig.Ip + ":" + strconv.Itoa(cfg.UserServiceConfig.Port)
 	return &restUserService{ctx, l, cfg, userServiceUrl}, nil
 }
 

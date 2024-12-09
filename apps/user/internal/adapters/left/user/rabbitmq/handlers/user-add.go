@@ -15,13 +15,13 @@ func (h *handler) AddUserConsumer(userApi application.UserPort) error {
 		return err
 	}
 	userAddMsgs, err := ch.Consume(
-		h.cfg.SharedConfig.UserService.ProjectName, // queue
-		"user-add", // consumer
-		true,       // auto-ack
-		false,      // exclusive
-		false,      // no-local
-		false,      // no-wait
-		nil,        // args
+		h.cfg.BaseConfig.ProjectName, // queue
+		"user-add",                   // consumer
+		true,                         // auto-ack
+		false,                        // exclusive
+		false,                        // no-local
+		false,                        // no-wait
+		nil,                          // args
 	)
 
 	go func() {

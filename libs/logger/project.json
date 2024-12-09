@@ -1,9 +1,9 @@
 {
   "name": "logger",
-  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
-  "sourceRoot": "libs/golang/logger",
-  "tags": [],
+  "sourceRoot": "libs/logger",
+  "tags": ["scope:libs"],
   "targets": {
     "tidy": {
       "executor": "@nx-go/nx-go:tidy"

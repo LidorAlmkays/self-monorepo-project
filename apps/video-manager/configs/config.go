@@ -1,12 +1,9 @@
 package configs
 
-import (
-	libConfigs "github.com/LidorAlmkays/self-monorepo-project/libs/golang/configs"
-)
+import "github.com/LidorAlmkays/self-monorepo-project/libs/golang/configs/project_base_info"
 
 type Config struct {
-	SharedConfig *libConfigs.SharedConfigs
-	// ServiceConfig *ServiceConfig
+	BaseConfig *project_base_info.VideoManager
 }
 
 // type ServiceConfig struct {

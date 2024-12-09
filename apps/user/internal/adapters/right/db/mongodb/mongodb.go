@@ -2,6 +2,7 @@ package mongodb
 
 import (
 	"context"
+	"fmt"
 	"log"
 	"time"
 
@@ -18,9 +19,9 @@ type mongoApi struct {
 	l          logger.CustomLogger
 }
 
-func NewMongoApi(ctx context.Context, url string, dbName string, l logger.CustomLogger) db.DbPort {
-	ctx = context.WithValue(ctx, "database", dbName)
-
+func NewMongoApi(ctx context.Context, dbPort int, dbIp, dbUserName, dbPassword, collectionName string, l logger.CustomLogger) db.DbPort {
+	ctx = context.WithValue(ctx, "database", collectionName)
+	url := fmt.Sprintf("mongodb://%s:%s@%s:%d", dbUserName, dbPassword, dbIp, dbPort)
 	return &mongoApi{
 		url: url,
 		l:   l,
