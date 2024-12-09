@@ -1,7 +1,7 @@
 package incoming
 
 import (
-	"github.com/LidorAlmkays/self-monorepo-project/apps/video-manager/dtos/validators"
+	"github.com/LidorAlmkays/self-monorepo-project/libs/golang/validators"
 	"github.com/go-playground/validator"
 )
 

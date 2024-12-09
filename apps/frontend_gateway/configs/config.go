@@ -10,10 +10,10 @@ type Config struct {
 
 type ServiceConfig struct {
 	Frontend struct {
-		Url string `yaml:"url" validate:"required,url"`
+		Url string `yaml:"url" validate:"required,url" env:"FRONTEND_URL"`
 	} `yaml:"frontend" validate:"required"`
 	Rabbitmq struct {
-		UserExchangeName string `yaml:"user-exchange-name" validate:"required"`
-		Url              string `yaml:"url" validate:"required"`
+		UserExchangeName string `yaml:"user-exchange-name" validate:"required" env:"USER_EXCHANGE_NAME"`
+		Url              string `yaml:"url" validate:"required" env:"RABBITMQ_URL"`
 	} `yaml:"rabbitmq,omitempty" validate:"required"`
 }

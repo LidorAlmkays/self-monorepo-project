@@ -4,12 +4,12 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-
-	"github.com/go-playground/validator"
 )
 
-func GetConfig[T any](fileFullPath string, fileType ConfigTypes) (*T, error) {
-	var cfg *T
+type StructConstraint interface {
+}
+
+func GetConfig[T any](cfg *T, fileFullPath string, fileType ConfigTypes) (*T, error) {
 	var err error
 
 	switch fileType {
@@ -37,13 +37,6 @@ func GetConfig[T any](fileFullPath string, fileType ConfigTypes) (*T, error) {
 			fmt.Print(err)
 			return nil, err
 		}
-	}
-
-	validate := validator.New()
-
-	err = validate.Struct(cfg)
-	if err != nil {
-		return nil, err
 	}
 
 	printConfigs(cfg)

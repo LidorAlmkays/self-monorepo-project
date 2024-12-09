@@ -9,18 +9,18 @@ type Config struct {
 
 type ServiceConfig struct {
 	Auth struct {
-		PepperLetters string `yaml:"pepper-letters" validate:"required"`
-		PepperLength  int    `yaml:"pepper-length" validate:"required"`
+		PepperLetters string `yaml:"pepper-letters" validate:"required" env:"PEPPER_LETTERS"`
+		PepperLength  int    `yaml:"pepper-length" validate:"required" env:"PEPPER_LENGTH"`
 	} `yaml:"auth" validate:"required"`
 	Db struct {
-		Name     string `yaml:"name" validate:"required"`
-		UserName string `yaml:"username" validate:"required"`
-		Password string `yaml:"password" validate:"required"`
-		Port     int    `yaml:"port" validate:"required,min=1,max=65535"`
-		Ip       string `yaml:"ip" validate:"required"`
+		Name     string `yaml:"name" validate:"required" env:"DB_NAME"`
+		UserName string `yaml:"username" validate:"required" env:"DB_USERNAME"`
+		Password string `yaml:"password" validate:"required" env:"DB_PASSWORD"`
+		Port     int    `yaml:"port" validate:"required,min=1,max=65535" env:"DB_PORT"`
+		Ip       string `yaml:"ip" validate:"required" env:"DB_IP"`
 	} `yaml:"db" validate:"required"`
 	Rabbitmq struct {
-		UserExchangeName string `yaml:"user-exchange-name" validate:"required"`
-		Url              string `yaml:"url" validate:"required"`
+		UserExchangeName string `yaml:"user-exchange-name" validate:"required" env:"USER_EXCHANGE_NAME"`
+		Url              string `yaml:"url" validate:"required" env:"RABBITMQ_URL"`
 	} `yaml:"rabbitmq,omitempty" validate:"required"`
 }

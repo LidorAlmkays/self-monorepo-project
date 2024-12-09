@@ -1,6 +1,0 @@
-# Server configurations
-frontend:
-  url: 'http://localhost:4200'
-rabbitmq:
-  user-exchange-name: 'user'
-  url: 'amqp://admin:admin@localhost:5672/'

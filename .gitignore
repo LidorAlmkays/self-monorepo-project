@@ -50,7 +50,4 @@ Thumbs.db
 
 .angular
 
-
-
-
-.venv
+*.env

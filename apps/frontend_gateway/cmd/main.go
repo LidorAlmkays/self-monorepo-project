@@ -2,16 +2,39 @@ package main
 
 import (
 	"context"
+	"flag"
 	"log"
 	"os"
+	"strings"
 
 	"github.com/LidorAlmkays/self-monorepo-project/apps/frontend_gateway/configs"
 	"github.com/LidorAlmkays/self-monorepo-project/apps/frontend_gateway/internal/adapters/left"
 	"github.com/LidorAlmkays/self-monorepo-project/apps/frontend_gateway/internal/adapters/left/rest"
 	"github.com/LidorAlmkays/self-monorepo-project/apps/frontend_gateway/internal/adapters/right/userService"
 	"github.com/LidorAlmkays/self-monorepo-project/apps/frontend_gateway/internal/application"
+	"github.com/LidorAlmkays/self-monorepo-project/libs/golang/enums"
 	"github.com/LidorAlmkays/self-monorepo-project/libs/golang/logger"
+	"github.com/LidorAlmkays/self-monorepo-project/libs/golang/validators"
+	"github.com/go-playground/validator"
 )
+
+type ProgramFlags struct {
+	Mode string `validate:"required,programmode"`
+}
+
+var programFlags ProgramFlags
+
+func init() {
+	flag.StringVar(&programFlags.Mode, "Mode", "development", "This flags changes the program mode")
+	flag.Parse()
+	programFlags.Mode = strings.ToLower(programFlags.Mode)
+	validate := validator.New()
+	validate.RegisterValidation("programmode", validators.ProgramModeValidator)
+	err := validate.Struct(programFlags)
+	if err != nil {
+		panic(err)
+	}
+}
 
 // acts like an init function, but doing it this way i can control the program exit code
 func setUp() error {
@@ -19,7 +42,7 @@ func setUp() error {
 	var err error
 
 	//open configs
-	cfg, err := configs.SetUpConfig(true)
+	cfg, err := configs.SetUpConfig(enums.ProgramMode(programFlags.Mode))
 	if err != nil {
 		return err
 	}
