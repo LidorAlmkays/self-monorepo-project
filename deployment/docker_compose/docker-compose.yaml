@@ -3,12 +3,12 @@ include:
   #     - templates/frontend.yaml
   # - path:
   #     - templates/frontend-gateway.yaml
+  # - path:
+  #     - templates/mongo.yaml
   - path:
-      - templates/mongo.yaml
+      - templates/video-manager.yaml
   # - path:
   #     - templates/user-service.yaml
-  # - path:
-  #     - templates/rabbitmq-initializer-service.yaml
   # - path:
   #     - templates/rabbitmq.yaml
 

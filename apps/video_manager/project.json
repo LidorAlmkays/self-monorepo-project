@@ -25,6 +25,17 @@
         }
       }
     },
+    "container": {
+      "executor": "@nx-tools/nx-container:build",
+      "options": {
+        "engine": "docker",
+        "load": true,
+        "metadata": {
+          "images": ["video-manager"],
+          "tags": ["type=ref,event=branch"]
+        }
+      }
+    },
     "tidy": {
       "executor": "@nx-go/nx-go:tidy"
     }
