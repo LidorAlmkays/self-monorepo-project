@@ -14,13 +14,16 @@ func SetUpConfig(programMode enums.ProgramMode) (*Config, error) {
 	var cfg *Config = &Config{}
 
 	confType := libConfigs.ENV
+	basePath := ""
 	switch programMode {
 	case enums.DevelopmentMode:
 		{
+			basePath = "../configs/"
 			confType = libConfigs.YAML
 		}
 	case enums.ProductionMode:
 		{
+			basePath = "../../deployment/configs/"
 			confType = libConfigs.ENV
 		}
 	default:
@@ -29,15 +32,15 @@ func SetUpConfig(programMode enums.ProgramMode) (*Config, error) {
 		}
 	}
 
-	cfg.BaseConfig, err = libConfigs.GetConfig(&project_base_info.FrontendGateway{}, "../configs/"+confType.String()+"/project_base_info/frontend-gateway."+confType.String(), confType)
+	cfg.BaseConfig, err = libConfigs.GetConfig(&project_base_info.FrontendGateway{}, basePath+"project_base_info/frontend-gateway."+confType.String(), confType)
 	if err != nil {
 		return nil, err
 	}
-	cfg.UserServiceConfig, err = libConfigs.GetConfig(&project_base_info.UserService{}, "../configs/"+confType.String()+"/project_base_info/user-service."+confType.String(), confType)
+	cfg.UserServiceConfig, err = libConfigs.GetConfig(&project_base_info.UserService{}, basePath+"/project_base_info/user-service."+confType.String(), confType)
 	if err != nil {
 		return nil, err
 	}
-	cfg.ServiceConfig, err = libConfigs.GetConfig(&ServiceConfig{}, "../configs/"+confType.String()+"/project_personal_info/frontend-gateway."+confType.String(), confType)
+	cfg.ServiceConfig, err = libConfigs.GetConfig(&ServiceConfig{}, basePath+"/project_personal_info/frontend-gateway."+confType.String(), confType)
 	if err != nil {
 		return nil, err
 	}

@@ -14,13 +14,16 @@ func SetUpConfig(programMode enums.ProgramMode) (*Config, error) {
 	var cfg *Config = &Config{}
 
 	confType := libConfigs.ENV
+	basePath := ""
 	switch programMode {
 	case enums.DevelopmentMode:
 		{
+			basePath = "../configs/"
 			confType = libConfigs.YAML
 		}
 	case enums.ProductionMode:
 		{
+			basePath = "../../deployment/configs/"
 			confType = libConfigs.ENV
 		}
 	default:
@@ -28,7 +31,7 @@ func SetUpConfig(programMode enums.ProgramMode) (*Config, error) {
 			return nil, errors.New("received an invalid program mode")
 		}
 	}
-	cfg.BaseConfig, err = libConfigs.GetConfig(&project_base_info.VideoManager{}, "../configs/"+confType.String()+"/project_base_info/user-service."+confType.String(), confType)
+	cfg.BaseConfig, err = libConfigs.GetConfig(&project_base_info.VideoManager{}, basePath+"/project_base_info/user-service."+confType.String(), confType)
 	if err != nil {
 		return nil, err
 	}
