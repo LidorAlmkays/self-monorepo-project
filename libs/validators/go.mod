@@ -1,4 +1,4 @@
-module github.com/LidorAlmkays/self-monorepo-project/libs/golang/validators
+module github.com/LidorAlmkays/self-monorepo-project/libs/validators
 
 go 1.23
 
