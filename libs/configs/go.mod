@@ -1,4 +1,4 @@
-module github.com/LidorAlmkays/self-monorepo-project/libs/golang/configs
+module github.com/LidorAlmkays/self-monorepo-project/libs/configs
 
 go 1.23
 

@@ -1,3 +1,3 @@
-module github.com/LidorAlmkays/self-monorepo-project/libs/golang/enums
+module github.com/LidorAlmkays/self-monorepo-project/libs/enums
 
 go 1.23

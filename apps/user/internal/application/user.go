@@ -3,12 +3,11 @@ package application
 import (
 	"errors"
 
-	"github.com/LidorAlmkays/self-monorepo-project/apps/user/dtos/incoming"
-	"github.com/LidorAlmkays/self-monorepo-project/apps/user/dtos/outgoing"
 	"github.com/LidorAlmkays/self-monorepo-project/apps/user/internal/adapters/right/db"
 	"github.com/LidorAlmkays/self-monorepo-project/apps/user/internal/application/auth"
 	"github.com/LidorAlmkays/self-monorepo-project/apps/user/internal/entities"
-	"github.com/LidorAlmkays/self-monorepo-project/libs/golang/logger"
+	"github.com/LidorAlmkays/self-monorepo-project/libs/dtos/user_dtos"
+	"github.com/LidorAlmkays/self-monorepo-project/libs/logger"
 )
 
 type user struct {
@@ -21,7 +20,7 @@ func NewUserApi(db db.DbPort, auth auth.AuthPort, l logger.CustomLogger) UserPor
 	return &user{db, auth, l}
 }
 
-func (uApi *user) AddUser(user incoming.AddUserDTO) error {
+func (uApi *user) AddUser(user user_dtos.AddUserDTO) error {
 	userEntity := entities.User{
 		Email:    user.Email,
 		Name:     user.Name,
@@ -44,7 +43,7 @@ func (uApi *user) AddUser(user incoming.AddUserDTO) error {
 	return nil
 }
 
-func (uApi *user) AuthenticateUser(userData incoming.AuthenticateUserDTO) (*outgoing.UserTokenResponseDTO, error) {
+func (uApi *user) AuthenticateUser(userData user_dtos.AuthenticateUserDTO) (*user_dtos.UserTokenResponseDTO, error) {
 	user, err := uApi.db.GetUserByEmail(userData.Email)
 	if err != nil {
 		return nil, err
@@ -73,7 +72,7 @@ func (uApi *user) AuthenticateUser(userData incoming.AuthenticateUserDTO) (*outg
 		return nil, err
 	}
 
-	return &outgoing.UserTokenResponseDTO{
+	return &user_dtos.UserTokenResponseDTO{
 		Token: tokenForUser,
 		Role:  user.Role,
 	}, nil

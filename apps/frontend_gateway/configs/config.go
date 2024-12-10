@@ -1,6 +1,6 @@
 package configs
 
-import "github.com/LidorAlmkays/self-monorepo-project/libs/golang/configs/project_base_info"
+import "github.com/LidorAlmkays/self-monorepo-project/libs/configs/project_base_info"
 
 type Config struct {
 	ServiceConfig     *ServiceConfig

@@ -1,11 +1,8 @@
 package application
 
-import (
-	"github.com/LidorAlmkays/self-monorepo-project/apps/user/dtos/incoming"
-	"github.com/LidorAlmkays/self-monorepo-project/apps/user/dtos/outgoing"
-)
+import "github.com/LidorAlmkays/self-monorepo-project/libs/dtos/user_dtos"
 
 type UserPort interface {
-	AddUser(incoming.AddUserDTO) error
-	AuthenticateUser(incoming.AuthenticateUserDTO) (*outgoing.UserTokenResponseDTO, error)
+	AddUser(user_dtos.AddUserDTO) error
+	AuthenticateUser(user_dtos.AuthenticateUserDTO) (*user_dtos.UserTokenResponseDTO, error)
 }

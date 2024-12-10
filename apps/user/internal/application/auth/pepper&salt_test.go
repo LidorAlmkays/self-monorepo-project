@@ -4,8 +4,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/LidorAlmkays/self-monorepo-project/apps/user/dtos/incoming"
 	"github.com/LidorAlmkays/self-monorepo-project/apps/user/internal/entities"
+	"github.com/LidorAlmkays/self-monorepo-project/libs/dtos/user_dtos"
 )
 
 const testToken = "ac13a8c54f6b9cb299fb89961d159e78c36fe38bbf8b61b8a8f800f519673de5"
@@ -106,7 +106,7 @@ func TestGenerateSecretPassword(t *testing.T) {
 		t.Errorf("failed to generate a secret password.\nreason: %s", err.Error())
 	}
 	t.Log("generated the password:", SecretPassword)
-	testingUser := incoming.AuthenticateUserDTO{
+	testingUser := user_dtos.AuthenticateUserDTO{
 		Email:    u.Email,
 		Password: u.Password,
 	}
@@ -136,7 +136,7 @@ func TestAuthenticateUser(t *testing.T) {
 		t.Errorf("failed to generate a secret password.\nreason: %s", err.Error())
 	}
 	t.Log("generated the password:", SecretPassword)
-	testingUser := incoming.AuthenticateUserDTO{
+	testingUser := user_dtos.AuthenticateUserDTO{
 		Email:    u.Email,
 		Password: u.Password,
 	}
@@ -145,7 +145,7 @@ func TestAuthenticateUser(t *testing.T) {
 		t.Errorf("failed to authenticate created user")
 	}
 
-	failUserPassword := incoming.AuthenticateUserDTO{
+	failUserPassword := user_dtos.AuthenticateUserDTO{
 		Email:    u.Email,
 		Password: "Failme",
 	}
@@ -153,7 +153,7 @@ func TestAuthenticateUser(t *testing.T) {
 		t.Errorf("user auth was successful when it should have failed on password")
 	}
 
-	failUserEmail := incoming.AuthenticateUserDTO{
+	failUserEmail := user_dtos.AuthenticateUserDTO{
 		Email:    "Failme@gmail.com",
 		Password: u.Password,
 	}

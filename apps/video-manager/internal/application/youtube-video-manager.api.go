@@ -6,7 +6,7 @@ import (
 	"github.com/LidorAlmkays/self-monorepo-project/apps/video-manager/configs"
 	youtubevideodownloader "github.com/LidorAlmkays/self-monorepo-project/apps/video-manager/internal/adapters/right/youtube-video-downloader"
 	"github.com/LidorAlmkays/self-monorepo-project/apps/video-manager/internal/models"
-	"github.com/LidorAlmkays/self-monorepo-project/libs/golang/logger"
+	"github.com/LidorAlmkays/self-monorepo-project/libs/logger"
 )
 
 type YoutubeManagerApi struct {

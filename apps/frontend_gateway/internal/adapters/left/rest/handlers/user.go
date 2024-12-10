@@ -6,8 +6,7 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/LidorAlmkays/self-monorepo-project/apps/frontend_gateway/dtos/incoming"
-	"github.com/LidorAlmkays/self-monorepo-project/apps/user/dtos/outgoing"
+	"github.com/LidorAlmkays/self-monorepo-project/libs/dtos/user_dtos"
 )
 
 func (h *Handler) RegisterUser(w http.ResponseWriter, r *http.Request) {
@@ -21,7 +20,7 @@ func (h *Handler) RegisterUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	user := incoming.AddUserDTO{}
+	user := user_dtos.RequestToAddUserDTO{}
 	// Now decode the byte array into the user struct
 	err = json.Unmarshal(body, &user)
 	if err != nil {
@@ -47,7 +46,7 @@ func (h *Handler) LoginUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	user := incoming.AuthenticateUserDTO{}
+	user := user_dtos.AuthenticateUserDTO{}
 	// Now decode the byte array into the user struct
 	err = json.Unmarshal(body, &user)
 	if err != nil {
@@ -65,13 +64,12 @@ func (h *Handler) LoginUser(w http.ResponseWriter, r *http.Request) {
 		Value:   token,
 		Secure:  true,
 		Expires: time.Now().UTC().Add(1 * time.Hour),
-		Path: "/",
-		Domain: "localhost",
-
+		Path:    "/",
+		Domain:  "localhost",
 	}
 	http.SetCookie(w, cookie)
 
-	response := outgoing.UserTokenResponseDTO{Token: token}
+	response := user_dtos.UserTokenResponseDTO{Token: token}
 
 	// Set response header to JSON
 	w.Header().Set("Content-Type", "application/json")

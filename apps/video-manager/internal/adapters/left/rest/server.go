@@ -8,7 +8,7 @@ import (
 	"github.com/LidorAlmkays/self-monorepo-project/apps/video-manager/configs"
 	"github.com/LidorAlmkays/self-monorepo-project/apps/video-manager/internal/adapters/left"
 	"github.com/LidorAlmkays/self-monorepo-project/apps/video-manager/internal/application"
-	"github.com/LidorAlmkays/self-monorepo-project/libs/golang/logger"
+	"github.com/LidorAlmkays/self-monorepo-project/libs/logger"
 )
 
 type server struct {

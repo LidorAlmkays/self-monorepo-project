@@ -1,4 +1,4 @@
-package user
+package user_dtos
 
 type AuthenticateUserDTO struct {
 	Email    string `json:"email"`

@@ -11,7 +11,7 @@ import (
 	"github.com/LidorAlmkays/self-monorepo-project/apps/user/internal/adapters/left"
 	handler "github.com/LidorAlmkays/self-monorepo-project/apps/user/internal/adapters/left/user/rabbitmq/handlers"
 	"github.com/LidorAlmkays/self-monorepo-project/apps/user/internal/application"
-	"github.com/LidorAlmkays/self-monorepo-project/libs/golang/logger"
+	"github.com/LidorAlmkays/self-monorepo-project/libs/logger"
 )
 
 type rabbitmq struct {

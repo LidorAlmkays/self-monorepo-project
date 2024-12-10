@@ -1,8 +1,8 @@
-package incoming
+package user_dtos
 
 import "time"
 
-type AddUserDTO struct {
+type RequestToAddUserDTO struct {
 	Name     string    `json:"name"`
 	UserName string    `json:"username"`
 	Password string    `json:"password"`

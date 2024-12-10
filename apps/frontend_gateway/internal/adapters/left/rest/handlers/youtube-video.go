@@ -7,13 +7,13 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/LidorAlmkays/self-monorepo-project/apps/frontend_gateway/dtos/incoming"
+	"github.com/LidorAlmkays/self-monorepo-project/libs/dtos/video_dtos"
 )
 
 func (h *Handler) YoutubeVideoDownload(w http.ResponseWriter, r *http.Request) {
 	h.l.Info("Received a request to download youtube video")
 	// Parse the JSON request body
-	var model incoming.DownloadYoutubeVideoDTO
+	var model video_dtos.DownloadVideoDTO
 	if err := json.NewDecoder(r.Body).Decode(&model); err != nil {
 		http.Error(w, "Invalid request payload", http.StatusBadRequest)
 		return

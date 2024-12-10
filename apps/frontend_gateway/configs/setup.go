@@ -3,9 +3,9 @@ package configs
 import (
 	"errors"
 
-	libConfigs "github.com/LidorAlmkays/self-monorepo-project/libs/golang/configs"
-	"github.com/LidorAlmkays/self-monorepo-project/libs/golang/configs/project_base_info"
-	"github.com/LidorAlmkays/self-monorepo-project/libs/golang/enums"
+	libConfigs "github.com/LidorAlmkays/self-monorepo-project/libs/configs"
+	"github.com/LidorAlmkays/self-monorepo-project/libs/configs/project_base_info"
+	"github.com/LidorAlmkays/self-monorepo-project/libs/enums"
 	"github.com/go-playground/validator"
 )
 

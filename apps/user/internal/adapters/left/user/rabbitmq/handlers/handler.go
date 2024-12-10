@@ -5,7 +5,7 @@ import (
 
 	"github.com/LidorAlmkays/self-monorepo-project/apps/user/configs"
 	"github.com/LidorAlmkays/self-monorepo-project/apps/user/internal/application"
-	"github.com/LidorAlmkays/self-monorepo-project/libs/golang/logger"
+	"github.com/LidorAlmkays/self-monorepo-project/libs/logger"
 	amqp "github.com/rabbitmq/amqp091-go"
 )
 

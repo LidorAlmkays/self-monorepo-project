@@ -7,7 +7,7 @@ import (
 
 	"github.com/LidorAlmkays/self-monorepo-project/apps/frontend_gateway/configs"
 	"github.com/LidorAlmkays/self-monorepo-project/apps/frontend_gateway/internal/application"
-	"github.com/LidorAlmkays/self-monorepo-project/libs/golang/logger"
+	"github.com/LidorAlmkays/self-monorepo-project/libs/logger"
 )
 
 type Handler struct {

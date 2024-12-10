@@ -1,9 +1,9 @@
-package incoming
+package user_dtos
 
 import (
 	"time"
 
-	"github.com/LidorAlmkays/self-monorepo-project/libs/golang/enums"
+	"github.com/LidorAlmkays/self-monorepo-project/libs/enums"
 )
 
 type AddUserDTO struct {

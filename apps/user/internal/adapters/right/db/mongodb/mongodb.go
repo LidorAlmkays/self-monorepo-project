@@ -7,7 +7,7 @@ import (
 	"time"
 
 	"github.com/LidorAlmkays/self-monorepo-project/apps/user/internal/adapters/right/db"
-	"github.com/LidorAlmkays/self-monorepo-project/libs/golang/logger"
+	"github.com/LidorAlmkays/self-monorepo-project/libs/logger"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )

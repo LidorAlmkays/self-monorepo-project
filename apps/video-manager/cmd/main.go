@@ -12,9 +12,9 @@ import (
 	"github.com/LidorAlmkays/self-monorepo-project/apps/video-manager/internal/adapters/left/rest"
 	youtubevideodownloader "github.com/LidorAlmkays/self-monorepo-project/apps/video-manager/internal/adapters/right/youtube-video-downloader"
 	"github.com/LidorAlmkays/self-monorepo-project/apps/video-manager/internal/application"
-	"github.com/LidorAlmkays/self-monorepo-project/libs/golang/enums"
-	"github.com/LidorAlmkays/self-monorepo-project/libs/golang/logger"
-	"github.com/LidorAlmkays/self-monorepo-project/libs/golang/validators"
+	"github.com/LidorAlmkays/self-monorepo-project/libs/enums"
+	"github.com/LidorAlmkays/self-monorepo-project/libs/logger"
+	"github.com/LidorAlmkays/self-monorepo-project/libs/validators"
 	"github.com/go-playground/validator"
 )
 

@@ -5,14 +5,14 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/LidorAlmkays/self-monorepo-project/apps/video-manager/dtos/incoming"
+	"github.com/LidorAlmkays/self-monorepo-project/libs/dtos/video_dtos"
 )
 
 func (h *Handler) DownloadYoutubeVideo(w http.ResponseWriter, r *http.Request) {
 	h.l.Info("Received request to download youtube video")
 
 	// Parse JSON Body
-	var videoInfo incoming.YoutubeVideoDownloadDTO
+	var videoInfo video_dtos.YoutubeVideoDownloadDTO
 	if err := json.NewDecoder(r.Body).Decode(&videoInfo); err != nil {
 		http.Error(w, "Invalid JSON body, "+err.Error(), http.StatusBadRequest)
 		return
