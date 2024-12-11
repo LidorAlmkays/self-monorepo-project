@@ -36,11 +36,11 @@ func SetUpConfig(programMode enums.ProgramMode) (*Config, error) {
 	if err != nil {
 		return nil, err
 	}
-	cfg.UserServiceConfig, err = libConfigs.GetConfig(&project_base_info.UserService{}, basePath+"/project_base_info/user-service."+confType.String(), confType)
+	cfg.UserServiceConfig, err = libConfigs.GetConfig(&project_base_info.UserService{}, basePath+"project_base_info/user-service."+confType.String(), confType)
 	if err != nil {
 		return nil, err
 	}
-	cfg.ServiceConfig, err = libConfigs.GetConfig(&ServiceConfig{}, basePath+"/project_personal_info/frontend-gateway."+confType.String(), confType)
+	cfg.ServiceConfig, err = libConfigs.GetConfig(&ServiceConfig{}, basePath+"project_personal_info/frontend-gateway."+confType.String(), confType)
 	if err != nil {
 		return nil, err
 	}

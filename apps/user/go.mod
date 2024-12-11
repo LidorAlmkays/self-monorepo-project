@@ -9,6 +9,11 @@ require (
 )
 
 require (
+	github.com/LidorAlmkays/self-monorepo-project/libs/configs v0.0.0-20241211133135-3d5851bc9e8d
+	github.com/LidorAlmkays/self-monorepo-project/libs/dtos v0.0.0-20241211133135-3d5851bc9e8d
+	github.com/LidorAlmkays/self-monorepo-project/libs/enums v0.0.0-20241211133135-3d5851bc9e8d
+	github.com/LidorAlmkays/self-monorepo-project/libs/logger v0.0.0-20241211133135-3d5851bc9e8d
+	github.com/LidorAlmkays/self-monorepo-project/libs/validators v0.0.0-20241211133135-3d5851bc9e8d
 	github.com/go-playground/validator v9.31.0+incompatible
 	github.com/rabbitmq/amqp091-go v1.10.0
 )
@@ -28,5 +33,4 @@ require (
 	golang.org/x/crypto v0.22.0 // indirect
 	golang.org/x/sync v0.9.0 // indirect
 	golang.org/x/text v0.14.0 // indirect
-	gopkg.in/go-playground/assert.v1 v1.2.1 // indirect
 )

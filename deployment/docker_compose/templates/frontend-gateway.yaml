@@ -6,10 +6,8 @@ services:
       context: '../../../'
       dockerfile: 'apps/frontend_gateway/Dockerfile'
     env_file:
-      - deployment/configs/project_base_info/frontend-gateway.env
-      - deployment/configs/project_base_info/user-service.env
-      - deployment/configs/project_personal_info/frontend-gateway.env
-
-
+      - ../../configs/project_base_info/frontend-gateway.env
+      - ../../configs/project_base_info/user-service.env
+      - ../../configs/project_personal_info/frontend-gateway.env
     networks:
       - common-network

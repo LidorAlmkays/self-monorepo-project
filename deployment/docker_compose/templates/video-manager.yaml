@@ -3,13 +3,9 @@ services:
     container_name: video-manager
     restart: unless-stopped
     build:
-      context: '../..'
-      dockerfile: '/apps/video_manager/Dockerfile'
-    depends_on:
-      - mongodb
+      context: '../../../'
+      dockerfile: 'apps/video_manager/Dockerfile'
     env_file:
-      - deployment/configs/project_base_info/user-service.env
-      - deployment/configs/project_personal_info/user-service.env
-
+      - ../../configs/project_base_info/video-manager.env
     networks:
       - common-network
