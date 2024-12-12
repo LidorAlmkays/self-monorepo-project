@@ -1,0 +1,22 @@
+{
+  "name": "frontend",
+  "version": "1.0.0",
+  "description": "Frontend app for the project",
+  "main": "src/main.ts",
+  "scripts": {
+    "ng": "ng",
+    "start": "ng serve --configuration development",
+    "build": "ng build --configuration production",
+    "test": "ng test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LidorAlmkays/self-monorepo-project.git"
+  },
+  "author": "Lidor",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/LidorAlmkays/self-monorepo-project/issues"
+  },
+  "homepage": "https://github.com/LidorAlmkays/self-monorepo-project#readme"
+}

@@ -3,7 +3,7 @@ services:
     container_name: frontend
     restart: unless-stopped
     build:
-      context: '../../'
+      context: '../../../'
       dockerfile: 'apps/frontend/Dockerfile'
     ports:
       - '4200:80'

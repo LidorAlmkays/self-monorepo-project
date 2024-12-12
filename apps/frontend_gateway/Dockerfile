@@ -23,4 +23,4 @@ COPY --from=build /app/myapp .
 COPY --from=build /app/configs ./configs
 
 # Set the entrypoint command
-ENTRYPOINT ["/app/myapp"]
+ENTRYPOINT ["/app/myapp", "--Mode","production"]
