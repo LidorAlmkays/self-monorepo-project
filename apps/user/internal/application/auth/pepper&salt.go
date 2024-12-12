@@ -7,9 +7,9 @@ import (
 	"math"
 	"math/rand"
 
-	"github.com/LidorAlmkays/self-monorepo-project/apps/user/dtos/incoming"
 	"github.com/LidorAlmkays/self-monorepo-project/apps/user/internal/entities"
-	"github.com/LidorAlmkays/self-monorepo-project/libs/golang/logger"
+	"github.com/LidorAlmkays/self-monorepo-project/libs/dtos/user_dtos"
+	"github.com/LidorAlmkays/self-monorepo-project/libs/logger"
 )
 
 type Auth struct {
@@ -78,7 +78,7 @@ func (a *Auth) GenerateSecretPassword(u *entities.User) (string, error) {
 }
 
 // authenticate incoming user data with user from database
-func (a *Auth) AuthenticateUser(loginInfo incoming.AuthenticateUserDTO, userFromDb *entities.User) bool {
+func (a *Auth) AuthenticateUser(loginInfo user_dtos.AuthenticateUserDTO, userFromDb *entities.User) bool {
 	pepperIndexes := make([]int, a.pepperLength)
 	for range int(math.Pow(float64(len(a.pepperLetters)), float64(a.pepperLength))) {
 		if pepperIndexes[0] == len(a.pepperLetters) {

@@ -1,0 +1,13 @@
+services:
+  frontend-gateway:
+    container_name: frontend-gateway
+    restart: unless-stopped
+    build:
+      context: '../../../'
+      dockerfile: 'apps/frontend_gateway/Dockerfile'
+    env_file:
+      - ../../configs/project_base_info/frontend-gateway.env
+      - ../../configs/project_base_info/user-service.env
+      - ../../configs/project_personal_info/frontend-gateway.env
+    networks:
+      - common-network

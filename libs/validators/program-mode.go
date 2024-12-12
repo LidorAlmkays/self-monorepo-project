@@ -1,7 +1,7 @@
 package validators
 
 import (
-	"github.com/LidorAlmkays/self-monorepo-project/libs/golang/enums"
+	"github.com/LidorAlmkays/self-monorepo-project/libs/enums"
 	"github.com/go-playground/validator"
 )
 

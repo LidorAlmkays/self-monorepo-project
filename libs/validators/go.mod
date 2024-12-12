@@ -1,8 +1,11 @@
-module github.com/LidorAlmkays/self-monorepo-project/libs/golang/validators
+module github.com/LidorAlmkays/self-monorepo-project/libs/validators
 
 go 1.23
 
-require github.com/go-playground/validator v9.31.0+incompatible
+require (
+	github.com/LidorAlmkays/self-monorepo-project/libs/enums v0.0.0-20241211133135-3d5851bc9e8d
+	github.com/go-playground/validator v9.31.0+incompatible
+)
 
 require (
 	github.com/go-playground/locales v0.14.1 // indirect

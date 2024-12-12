@@ -7,9 +7,9 @@ import (
 	"os"
 	"strings"
 
-	"github.com/LidorAlmkays/self-monorepo-project/libs/golang/enums"
-	"github.com/LidorAlmkays/self-monorepo-project/libs/golang/logger"
-	"github.com/LidorAlmkays/self-monorepo-project/libs/golang/validators"
+	"github.com/LidorAlmkays/self-monorepo-project/libs/enums"
+	"github.com/LidorAlmkays/self-monorepo-project/libs/logger"
+	"github.com/LidorAlmkays/self-monorepo-project/libs/validators"
 	"github.com/go-playground/validator"
 
 	"github.com/LidorAlmkays/self-monorepo-project/apps/user/configs"

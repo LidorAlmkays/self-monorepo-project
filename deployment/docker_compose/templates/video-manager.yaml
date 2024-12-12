@@ -1,0 +1,11 @@
+services:
+  video-manager:
+    container_name: video-manager
+    restart: unless-stopped
+    build:
+      context: '../../../'
+      dockerfile: 'apps/video_manager/Dockerfile'
+    env_file:
+      - ../../configs/project_base_info/video-manager.env
+    networks:
+      - common-network

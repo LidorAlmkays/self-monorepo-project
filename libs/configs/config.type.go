@@ -1,8 +1,12 @@
 package configs
 
-type ConfigTypes int
+type ConfigTypes string
 
 const (
-	YAML ConfigTypes = iota
-	ENV
+	YAML ConfigTypes = "yaml"
+	ENV  ConfigTypes = "env"
 )
+
+func (c ConfigTypes) String() string {
+	return string(c)
+}

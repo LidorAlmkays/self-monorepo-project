@@ -7,10 +7,6 @@ WORKDIR /app
 # Copy the source code
 COPY ./apps/user .
 
-COPY ./deployment_docker_compose/configs/shared-configs.yaml /app/configs/shared-configs.yaml
-
-COPY ./deployment_docker_compose/configs/user-service.yaml /app/configs/user-service.yaml
-
 RUN go mod download
 
 # Build the Go application
@@ -27,4 +23,4 @@ COPY --from=build /app/myapp .
 COPY --from=build /app/configs ./configs
 
 # Set the entrypoint command
-ENTRYPOINT ["/app/myapp"]
+ENTRYPOINT ["/app/myapp", "--Mode","production"]

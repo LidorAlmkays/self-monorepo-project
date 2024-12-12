@@ -1,7 +1,13 @@
-github.com/LidorAlmkays/self-monorepo-project/libs/golang/configs v0.0.0-20241009131958-25b17050c9fe h1:xHT9DvPz7Egr2hXohSvdcCehLa68NUB8oGA5psr/ujY=
-github.com/LidorAlmkays/self-monorepo-project/libs/golang/configs v0.0.0-20241009131958-25b17050c9fe/go.mod h1:9ezAEqh9jzW2/A/3XJNLETI17VHliz9I6zdvLQ7JMrQ=
-github.com/LidorAlmkays/self-monorepo-project/libs/golang/logger v0.0.0-20240918182210-fbc639a26826 h1:CG681Z84if32X08n7a0ViIP8jYuRCCfIhCHmo2CUW2w=
-github.com/LidorAlmkays/self-monorepo-project/libs/golang/logger v0.0.0-20240918182210-fbc639a26826/go.mod h1:Cy5U1fyXfSZmCyBTexp6Lf5aGdw2cPdD9MyBh7JbdXg=
+github.com/LidorAlmkays/self-monorepo-project/libs/configs v0.0.0-20241211133135-3d5851bc9e8d h1:lMqc5WmQvBNMimLK2dvMPL+llPjMpbbdOZHzsbfEHKs=
+github.com/LidorAlmkays/self-monorepo-project/libs/configs v0.0.0-20241211133135-3d5851bc9e8d/go.mod h1:S01NKc/dRuWGrCrUec0bBLhMpXrpYmTY6ifnfGoddRE=
+github.com/LidorAlmkays/self-monorepo-project/libs/dtos v0.0.0-20241211133135-3d5851bc9e8d h1:au7rHZh+sOH8/whYPqmrrijAKdQWNBzctd6aqQ/ynM4=
+github.com/LidorAlmkays/self-monorepo-project/libs/dtos v0.0.0-20241211133135-3d5851bc9e8d/go.mod h1:R6QiMjUdphQgtSWkQmf86kYrZyGmcRLxfPp9LFP/cVk=
+github.com/LidorAlmkays/self-monorepo-project/libs/enums v0.0.0-20241211133135-3d5851bc9e8d h1:BVql7PdFJ+TfzDW+7Uqgy8DpA8ICu0SYIUhXTlClwTI=
+github.com/LidorAlmkays/self-monorepo-project/libs/enums v0.0.0-20241211133135-3d5851bc9e8d/go.mod h1:zIJFbNdq9Z3WEITFpGcdZdT9OHEF8dGqItgsAENvGrA=
+github.com/LidorAlmkays/self-monorepo-project/libs/logger v0.0.0-20241211133135-3d5851bc9e8d h1:svzNCqosZzlJnKRn8IwwKKNbuRKVZBBjGWwBK2ap6ik=
+github.com/LidorAlmkays/self-monorepo-project/libs/logger v0.0.0-20241211133135-3d5851bc9e8d/go.mod h1:a0r1qdz/gL1SUGaGYnc5aIanOvT3wuYY2niI/ttwXOs=
+github.com/LidorAlmkays/self-monorepo-project/libs/validators v0.0.0-20241211133135-3d5851bc9e8d h1:EPKNoDLq1lsXZf5WXkdV6BHO3f6sz8/8bU5STReJP84=
+github.com/LidorAlmkays/self-monorepo-project/libs/validators v0.0.0-20241211133135-3d5851bc9e8d/go.mod h1:jAz4jiGaA9Rrwrh+8Hnh+SaFKHpDkAnT+enmQeUB3S4=
 github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/go-playground/locales v0.14.1 h1:EWaQ/wswjilfKLTECiXz7Rh+3BjFhfDFKv/oXslEjJA=

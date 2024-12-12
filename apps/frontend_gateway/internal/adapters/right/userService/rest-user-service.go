@@ -11,9 +11,8 @@ import (
 	"strconv"
 
 	"github.com/LidorAlmkays/self-monorepo-project/apps/frontend_gateway/configs"
-	"github.com/LidorAlmkays/self-monorepo-project/apps/user/dtos/incoming"
-	"github.com/LidorAlmkays/self-monorepo-project/apps/user/dtos/outgoing"
-	"github.com/LidorAlmkays/self-monorepo-project/libs/golang/logger"
+	"github.com/LidorAlmkays/self-monorepo-project/libs/dtos/user_dtos"
+	"github.com/LidorAlmkays/self-monorepo-project/libs/logger"
 )
 
 type restUserService struct {
@@ -28,7 +27,7 @@ func NewRestUserService(ctx context.Context, l logger.CustomLogger, cfg configs.
 	return &restUserService{ctx, l, cfg, userServiceUrl}, nil
 }
 
-func (r *restUserService) AddUser(user incoming.AddUserDTO) error {
+func (r *restUserService) AddUser(user user_dtos.AddUserDTO) error {
 	jsonData, err := json.Marshal(user)
 	if err != nil {
 		return err
@@ -44,7 +43,7 @@ func (r *restUserService) AddUser(user incoming.AddUserDTO) error {
 	return nil
 }
 
-func (r *restUserService) LoginUser(user incoming.AuthenticateUserDTO) (*outgoing.UserTokenResponseDTO, error) {
+func (r *restUserService) LoginUser(user user_dtos.AuthenticateUserDTO) (*user_dtos.UserTokenResponseDTO, error) {
 	jsonData, err := json.Marshal(user)
 	if err != nil {
 		return nil, err
@@ -67,7 +66,7 @@ func (r *restUserService) LoginUser(user incoming.AuthenticateUserDTO) (*outgoin
 		fmt.Println("Error reading response body:", err)
 		return nil, err
 	}
-	var tokenResponse outgoing.UserTokenResponseDTO
+	var tokenResponse user_dtos.UserTokenResponseDTO
 	if err := json.Unmarshal(body, &tokenResponse); err != nil {
 		fmt.Println("Error parsing response JSON:", err)
 		return nil, err

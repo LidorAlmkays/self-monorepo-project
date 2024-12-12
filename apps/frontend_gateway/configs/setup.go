@@ -3,9 +3,9 @@ package configs
 import (
 	"errors"
 
-	libConfigs "github.com/LidorAlmkays/self-monorepo-project/libs/golang/configs"
-	"github.com/LidorAlmkays/self-monorepo-project/libs/golang/configs/project_base_info"
-	"github.com/LidorAlmkays/self-monorepo-project/libs/golang/enums"
+	libConfigs "github.com/LidorAlmkays/self-monorepo-project/libs/configs"
+	"github.com/LidorAlmkays/self-monorepo-project/libs/configs/project_base_info"
+	"github.com/LidorAlmkays/self-monorepo-project/libs/enums"
 	"github.com/go-playground/validator"
 )
 
@@ -14,17 +14,17 @@ func SetUpConfig(programMode enums.ProgramMode) (*Config, error) {
 	var cfg *Config = &Config{}
 
 	confType := libConfigs.ENV
-	stringFiller := "env"
+	basePath := ""
 	switch programMode {
 	case enums.DevelopmentMode:
 		{
-			stringFiller = "yaml"
+			basePath = "../configs/"
 			confType = libConfigs.YAML
 		}
 	case enums.ProductionMode:
 		{
+			basePath = "../../deployment/configs/"
 			confType = libConfigs.ENV
-			stringFiller = "env"
 		}
 	default:
 		{
@@ -32,15 +32,15 @@ func SetUpConfig(programMode enums.ProgramMode) (*Config, error) {
 		}
 	}
 
-	cfg.BaseConfig, err = libConfigs.GetConfig(&project_base_info.FrontendGateway{}, "../config_files/"+stringFiller+"s/frontend-gateway."+stringFiller, confType)
+	cfg.BaseConfig, err = libConfigs.GetConfig(&project_base_info.FrontendGateway{}, basePath+"project_base_info/frontend-gateway."+confType.String(), confType)
 	if err != nil {
 		return nil, err
 	}
-	cfg.UserServiceConfig, err = libConfigs.GetConfig(&project_base_info.UserService{}, "../config_files/"+stringFiller+"s/user-service."+stringFiller, confType)
+	cfg.UserServiceConfig, err = libConfigs.GetConfig(&project_base_info.UserService{}, basePath+"project_base_info/user-service."+confType.String(), confType)
 	if err != nil {
 		return nil, err
 	}
-	cfg.ServiceConfig, err = libConfigs.GetConfig(&ServiceConfig{}, "./configs/."+stringFiller, confType)
+	cfg.ServiceConfig, err = libConfigs.GetConfig(&ServiceConfig{}, basePath+"project_personal_info/frontend-gateway."+confType.String(), confType)
 	if err != nil {
 		return nil, err
 	}

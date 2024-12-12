@@ -13,7 +13,7 @@ func (s *server) addRoutes() http.Handler {
 	c := cors.New(cors.Options{
 		AllowedOrigins:   []string{s.cfg.ServiceConfig.Frontend.Url}, // Your frontend URL
 		AllowCredentials: true,
-		AllowedMethods:   []string{"GET", "POST", "PUT", "DELETE"},
+		AllowedMethods:   []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
 		AllowedHeaders:   []string{"Authorization", "Content-Type"},
 	})
 

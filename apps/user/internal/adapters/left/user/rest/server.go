@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/LidorAlmkays/self-monorepo-project/libs/golang/logger"
+	"github.com/LidorAlmkays/self-monorepo-project/libs/logger"
 
 	"github.com/LidorAlmkays/self-monorepo-project/apps/user/configs"
 	"github.com/LidorAlmkays/self-monorepo-project/apps/user/internal/adapters/left"

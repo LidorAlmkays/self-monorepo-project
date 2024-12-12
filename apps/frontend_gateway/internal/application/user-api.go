@@ -1,11 +1,10 @@
 package application
 
 import (
-	"github.com/LidorAlmkays/self-monorepo-project/apps/frontend_gateway/dtos/incoming"
 	"github.com/LidorAlmkays/self-monorepo-project/apps/frontend_gateway/internal/adapters/right/userService"
-	userServiceIncoming "github.com/LidorAlmkays/self-monorepo-project/apps/user/dtos/incoming"
-	"github.com/LidorAlmkays/self-monorepo-project/libs/golang/enums"
-	"github.com/LidorAlmkays/self-monorepo-project/libs/golang/logger"
+	"github.com/LidorAlmkays/self-monorepo-project/libs/dtos/user_dtos"
+	"github.com/LidorAlmkays/self-monorepo-project/libs/enums"
+	"github.com/LidorAlmkays/self-monorepo-project/libs/logger"
 )
 
 type userApi struct {
@@ -20,9 +19,9 @@ func NewUserApi(userManagerPorts userService.UserServiceApi, l logger.CustomLogg
 	}
 }
 
-func (uApi *userApi) RegisterUser(user incoming.AddUserDTO) error {
+func (uApi *userApi) RegisterUser(user user_dtos.RequestToAddUserDTO) error {
 	uApi.l.Info("Adding user, sending to the user service API.")
-	userToRegister := userServiceIncoming.AddUserDTO{
+	userToRegister := user_dtos.AddUserDTO{
 		Email:    user.Email,
 		UserName: user.UserName,
 		Password: user.Password,
@@ -38,9 +37,9 @@ func (uApi *userApi) RegisterUser(user incoming.AddUserDTO) error {
 }
 
 // LoginUser implements UserPort.
-func (uApi *userApi) LoginUser(user incoming.AuthenticateUserDTO) (string, error) {
+func (uApi *userApi) LoginUser(user user_dtos.AuthenticateUserDTO) (string, error) {
 	uApi.l.Info("Logging user, sending to the user service API to receive his token")
-	userLogginIn := userServiceIncoming.AuthenticateUserDTO{
+	userLogginIn := user_dtos.AuthenticateUserDTO{
 		Email:    user.Email,
 		Password: user.Password,
 	}

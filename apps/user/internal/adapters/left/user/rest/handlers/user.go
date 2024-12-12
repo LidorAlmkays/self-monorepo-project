@@ -5,13 +5,13 @@ import (
 	"errors"
 	"net/http"
 
-	"github.com/LidorAlmkays/self-monorepo-project/apps/user/dtos/incoming"
+	"github.com/LidorAlmkays/self-monorepo-project/libs/dtos/user_dtos"
 	"github.com/go-playground/validator"
 )
 
 func (h Handler) AddUser(w http.ResponseWriter, r *http.Request) {
 	h.l.Info("Received a request to add user.")
-	var user incoming.AddUserDTO
+	var user user_dtos.AddUserDTO
 
 	err := json.NewDecoder(r.Body).Decode(&user)
 	if err != nil {
@@ -36,7 +36,7 @@ func (h Handler) AddUser(w http.ResponseWriter, r *http.Request) {
 
 func (h Handler) AuthenticateUser(w http.ResponseWriter, r *http.Request) {
 	h.l.Info("Received a request to authenticate a user.")
-	var user incoming.AuthenticateUserDTO
+	var user user_dtos.AuthenticateUserDTO
 
 	err := json.NewDecoder(r.Body).Decode(&user)
 	if err != nil {
