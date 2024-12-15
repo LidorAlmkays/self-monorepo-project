@@ -1,10 +1,12 @@
 package configs
 
-import "github.com/LidorAlmkays/self-monorepo-project/libs/configs/project_base_info"
+import (
+	"github.com/LidorAlmkays/self-monorepo-project/libs/configs/network"
+)
 
 type Config struct {
 	ServiceConfig *ServiceConfig
-	BaseConfig    *project_base_info.UserService
+	NetworkConfig *NetworkConfig
 }
 
 type ServiceConfig struct {
@@ -18,9 +20,13 @@ type ServiceConfig struct {
 		Password string `yaml:"password" validate:"required" env:"DB_PASSWORD"`
 		Port     int    `yaml:"port" validate:"required,min=1,max=65535" env:"DB_PORT"`
 		Ip       string `yaml:"ip" validate:"required" env:"DB_IP"`
-	} `yaml:"db" validate:"required"`
+	} `yaml:"database" validate:"required"`
 	Rabbitmq struct {
 		UserExchangeName string `yaml:"user-exchange-name" validate:"required" env:"USER_EXCHANGE_NAME"`
 		Url              string `yaml:"url" validate:"required" env:"RABBITMQ_URL"`
-	} `yaml:"rabbitmq,omitempty" validate:"required"`
+	} `yaml:"rabbitmq" validate:"required"`
+}
+
+type NetworkConfig struct {
+	Self *network.UserService `yaml:"user-service" validate:"required"`
 }

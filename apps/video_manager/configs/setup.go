@@ -4,7 +4,6 @@ import (
 	"errors"
 
 	libConfigs "github.com/LidorAlmkays/self-monorepo-project/libs/configs"
-	"github.com/LidorAlmkays/self-monorepo-project/libs/configs/project_base_info"
 	"github.com/LidorAlmkays/self-monorepo-project/libs/enums"
 	"github.com/go-playground/validator"
 )
@@ -31,7 +30,7 @@ func SetUpConfig(programMode enums.ProgramMode) (*Config, error) {
 			return nil, errors.New("received an invalid program mode")
 		}
 	}
-	cfg.BaseConfig, err = libConfigs.GetConfig(&project_base_info.VideoManager{}, basePath+"project_base_info/video-manager."+confType.String(), confType)
+	cfg, err = libConfigs.GetConfig(cfg, basePath+"network-info."+confType.String(), confType)
 	if err != nil {
 		return nil, err
 	}

@@ -51,7 +51,7 @@ func setUp() error {
 	}
 
 	//create project custom logger
-	var l logger.CustomLogger = logger.NewStackedCustomLogger(cfg.BaseConfig.ProjectName)
+	var l logger.CustomLogger = logger.NewStackedCustomLogger(cfg.NetworkConfig.Self.ProjectName)
 
 	//starting db connection
 	dbConnection := mongodb.NewMongoApi(ctx, cfg.ServiceConfig.Db.Port, cfg.ServiceConfig.Db.Ip, cfg.ServiceConfig.Db.UserName, cfg.ServiceConfig.Db.Password, cfg.ServiceConfig.Db.Name, l)

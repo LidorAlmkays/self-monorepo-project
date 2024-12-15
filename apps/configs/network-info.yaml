@@ -1,0 +1,15 @@
+frontend-gateway:
+  project-name: "frontend-gateway"
+  ip: "localhost"
+  port: 5000
+user-service:
+  project-name: "user-service"
+  ip: "localhost"
+  port: 5001
+video-manager:
+  project-name: "video-manager"
+  ip: "localhost"
+  port: 5002
+frontend:
+  ip: "localhost"
+  port: 4200

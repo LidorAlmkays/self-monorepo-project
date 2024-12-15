@@ -2,6 +2,7 @@ package rest
 
 import (
 	"net/http"
+	"strconv"
 
 	"github.com/LidorAlmkays/self-monorepo-project/apps/frontend_gateway/internal/adapters/left/rest/handlers"
 	"github.com/rs/cors"
@@ -11,7 +12,7 @@ func (s *server) addRoutes() http.Handler {
 	s.l.Message("Setting up http routes")
 	// Setup CORS
 	c := cors.New(cors.Options{
-		AllowedOrigins:   []string{s.cfg.ServiceConfig.Frontend.Url}, // Your frontend URL
+		AllowedOrigins:   []string{"http://" + s.cfg.NetworkConfig.Frontend.Ip + ":" + strconv.Itoa(s.cfg.NetworkConfig.Frontend.Port)}, // Your frontend URL
 		AllowCredentials: true,
 		AllowedMethods:   []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
 		AllowedHeaders:   []string{"Authorization", "Content-Type"},

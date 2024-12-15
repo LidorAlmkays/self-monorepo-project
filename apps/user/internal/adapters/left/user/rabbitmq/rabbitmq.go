@@ -46,22 +46,22 @@ func (r *rabbitmq) ListenAndServe(userApi application.UserPort) error {
 		return err
 	}
 	_, err = ch.QueueDeclare(
-		r.cfg.BaseConfig.ProjectName, //main request handler queue name
-		true,                         // durable
-		false,                        // delete when unused
-		false,                        // exclusive
-		false,                        // no-wait
-		nil,                          // arguments
+		r.cfg.NetworkConfig.Self.ProjectName, //main request handler queue name
+		true,                                 // durable
+		false,                                // delete when unused
+		false,                                // exclusive
+		false,                                // no-wait
+		nil,                                  // arguments
 	)
 	if err != nil {
-		r.l.Error(errors.New("failed to declare queue with the name: " + r.cfg.BaseConfig.ProjectName))
+		r.l.Error(errors.New("failed to declare queue with the name: " + r.cfg.NetworkConfig.Self.ProjectName))
 		return err
 	}
 	routingKeys := []string{"user-add", "user-update", "user-get", "user-delete"}
 	for _, routingKey := range routingKeys {
-		err = ch.QueueBind(r.cfg.BaseConfig.ProjectName, routingKey, r.cfg.ServiceConfig.Rabbitmq.UserExchangeName, false, amqp.Table{})
+		err = ch.QueueBind(r.cfg.NetworkConfig.Self.ProjectName, routingKey, r.cfg.ServiceConfig.Rabbitmq.UserExchangeName, false, amqp.Table{})
 		if err != nil {
-			r.l.Error(errors.New("failed to bind queue with the name: " + r.cfg.BaseConfig.ProjectName + " ,to the exchanged named: " + r.cfg.ServiceConfig.Rabbitmq.UserExchangeName))
+			r.l.Error(errors.New("failed to bind queue with the name: " + r.cfg.NetworkConfig.Self.ProjectName + " ,to the exchanged named: " + r.cfg.ServiceConfig.Rabbitmq.UserExchangeName))
 			return err
 		}
 	}

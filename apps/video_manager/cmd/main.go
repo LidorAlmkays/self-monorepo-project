@@ -49,7 +49,7 @@ func setUp() error {
 	}
 
 	//create project custom logger
-	var l logger.CustomLogger = logger.NewStackedCustomLogger(cfg.BaseConfig.ProjectName)
+	var l logger.CustomLogger = logger.NewStackedCustomLogger(cfg.NetworkConfig.Self.ProjectName)
 
 	//start http server to talk with frontend
 	var s left.BaseServer = rest.NewRestServer(ctx, *cfg, l)

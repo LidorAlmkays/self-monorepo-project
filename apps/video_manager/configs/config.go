@@ -1,10 +1,13 @@
 package configs
 
-import "github.com/LidorAlmkays/self-monorepo-project/libs/configs/project_base_info"
+import (
+	"github.com/LidorAlmkays/self-monorepo-project/libs/configs/network"
+)
 
 type Config struct {
-	BaseConfig *project_base_info.VideoManager
+	NetworkConfig *NetworkCOnfig
 }
 
-// type ServiceConfig struct {
-// }
+type NetworkCOnfig struct {
+	Self *network.VideoManager `yaml:"video-manager" validate:"required"`
+}

@@ -8,8 +8,8 @@ services:
     depends_on:
       - mongodb
     env_file:
-      - ../../configs/project_base_info/user-service.env
-      - ../../configs/project_personal_info/user-service.env
+      - ../../configs/user-service.env
+      - ../../configs/network.env
 
     networks:
       - common-network

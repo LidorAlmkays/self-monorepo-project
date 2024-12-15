@@ -4,7 +4,7 @@
 BASE_DIR="../configs"
 
 # Directory to store generated YAML files
-OUTPUT_DIR="./secrets-yaml"
+OUTPUT_DIR="./secrets_yaml"
 
 # Check if the base directory exists
 if [ ! -d "$BASE_DIR" ]; then

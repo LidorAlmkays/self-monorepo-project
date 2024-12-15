@@ -48,7 +48,7 @@ func setUp() error {
 	}
 
 	//create project custom logger
-	var l logger.CustomLogger = logger.NewStackedCustomLogger(cfg.BaseConfig.ProjectName)
+	var l logger.CustomLogger = logger.NewStackedCustomLogger(cfg.NetworkConfig.Self.ProjectName)
 
 	//create project api with the gui
 	var userServiceApi userService.UserServiceApi

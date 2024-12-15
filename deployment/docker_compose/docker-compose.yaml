@@ -15,3 +15,4 @@ include:
 networks:
   common-network:
     driver: bridge
+
