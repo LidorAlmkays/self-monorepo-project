@@ -1,0 +1,18 @@
+include:
+  - path:
+      - docker_compose/templates/frontend.yaml
+  - path:
+      - docker_compose/templates/frontend-gateway.yaml
+  - path:
+      - docker_compose/templates/mongo.yaml
+  - path:
+      - docker_compose/templates/video-manager.yaml
+  - path:
+      - docker_compose/templates/user-service.yaml
+  # - path:
+  #     - templates/rabbitmq.yaml
+
+networks:
+  common-network:
+    driver: bridge
+
