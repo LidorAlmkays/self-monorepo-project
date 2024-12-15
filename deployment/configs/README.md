@@ -1,61 +1,87 @@
-# Project Environment Configuration
+# Environment Files for Deployment
 
-This repository includes two directories for managing environment configuration files for projects. These files provide essential details for project setup but are excluded from version control for security and privacy reasons.
+This folder contains environment configuration files for different services. Please ensure to update the following placeholders in each `.env` file with the correct values before deploying your application:
 
-## Folder Structure
+---
 
-### 1. `project_base_info`
-This folder contains environment files that provide the basic setup information for each project. These files are shared across the team but exclude any sensitive details. Typical contents of the environment files in this folder include:
+## `frontend-gateway.env`
 
-- **Project Name**: The name of the project.
-- **IP Address**: The base IP address for the project.
-- **Port**: The port number the project runs on.
+This file contains configuration for the frontend gateway service.
 
-#### Example
-```env
-PROJECT_NAME=example_project
-IP_ADDRESS=192.168.1.1
-PORT=8080
-```
+- **`<frontend_host>`**: The hostname or IP address of the frontend service.
+- **`<frontend_port>`**: The port number for the frontend service (default is 80).
+- **`<exchange_name>`**: The name of the user exchange in RabbitMQ.
+- **`<rabbitmq_user>`**: The username for accessing RabbitMQ.
+- **`<rabbitmq_password>`**: The password for accessing RabbitMQ.
+- **`<rabbitmq_host>`**: The hostname or IP address of the RabbitMQ service.
+- **`<rabbitmq_port>`**: The port number for RabbitMQ (default is 5672).
 
-### 2. `project_personal_info`
-This folder contains environment files that store private and sensitive information specific to the project. These files are not shared publicly and must be managed securely. Typical contents include:
+---
 
-- **Database Username**
-- **Database Password**
-- **API Keys**
-- **Secrets**
+## `mongo-express.env`
 
-#### Example
-```env
-DB_USERNAME=admin
-DB_PASSWORD=supersecret
-API_KEY=abcd1234efgh5678
-SECRET_KEY=supersecurekey
-```
+This file contains configuration for Mongo Express (a web-based MongoDB admin interface).
 
-## Important Notes
+- **`<mongodb_admin_user>`**: The username for MongoDB admin access (default is "root").
+- **`<mongodb_admin_password>`**: The password for MongoDB admin access (default is "password").
+- **`<mongodb_host>`**: The hostname or IP address of the MongoDB service.
+- **`<mongodb_port>`**: The port number for MongoDB (default is 27017).
+- **`<true_or_false>`**: Whether to enable basic authentication for Mongo Express (`true` or `false`).
 
-1. **Do Not Push to GitHub**: Both `project_base_info` and `project_personal_info` folders are excluded from version control using `.gitignore`. Ensure sensitive information is never pushed to a public or shared repository.
+---
 
-2. **File Naming Convention**: Use consistent and descriptive file names for the environment files (e.g., `project1.env`, `project2.env`).
+## `mongodb.env`
 
-3. **Environment Variables**: Always load these environment files securely in your project (e.g., using libraries like `dotenv` in Node.js or `os` in Python).
+This file contains configuration for initializing the MongoDB root user and password.
 
-4. **Access Management**: Limit access to the `project_personal_info` folder to authorized personnel only.
+- **`<mongodb_root_user>`**: The root username for MongoDB (default is "root").
+- **`<mongodb_root_password>`**: The root password for MongoDB (default is "password").
 
-## Usage Instructions
+---
 
-1. Clone the repository.
-2. Navigate to the respective folder based on the type of information you need.
-3. Use the contents of the `.env` files to configure your project environment.
-4. Never share or expose the contents of the `project_personal_info` folder.
+## `network-info.env`
 
-## Security Best Practices
+This file contains network-related configuration for different services in the project.
 
-- **Encrypt Sensitive Files**: Use encryption tools to secure sensitive environment files.
-- **Rotate Keys and Passwords**: Regularly update sensitive keys and passwords.
-- **Use Secure Channels**: Share private environment files only through secure channels.
+- **`<frontend_gateway_project_name>`**: The name of the frontend gateway service project (e.g., "frontend-gateway").
+- **`<frontend_gateway_ip>`**: The IP address or hostname of the frontend gateway service.
+- **`<frontend_gateway_port>`**: The port number for the frontend gateway service (default is 5000).
+  
+- **`<user_service_project_name>`**: The name of the user service project (e.g., "user-service").
+- **`<user_service_ip>`**: The IP address or hostname of the user service.
+- **`<user_service_port>`**: The port number for the user service (default is 5001).
 
-By following the above practices, you can ensure that your project's environment configuration remains secure and manageable.
+- **`<video_manager_project_name>`**: The name of the video manager project (e.g., "video-manager").
+- **`<video_manager_ip>`**: The IP address or hostname of the video manager service.
+- **`<video_manager_port>`**: The port number for the video manager service (default is 5002).
 
+- **`<frontend_ip>`**: The IP address or hostname of the frontend service.
+- **`<frontend_port>`**: The port number for the frontend service (default is 4200).
+
+---
+
+## `rabbitmq.env`
+
+This file contains configuration for RabbitMQ user credentials.
+
+- **`<rabbitmq_user>`**: The default RabbitMQ username (default is "admin").
+- **`<rabbitmq_password>`**: The default RabbitMQ password (default is "admin").
+
+---
+
+## `user-service.env`
+
+This file contains configuration for the user service.
+
+- **`<db_name>`**: The name of the database for the user service (default is "users").
+- **`<db_user>`**: The username for accessing the MongoDB database (default is "root").
+- **`<db_password>`**: The password for the MongoDB database (default is "password").
+- **`<mongodb_host>`**: The hostname or IP address of the MongoDB service.
+- **`<rabbitmq_user>`**: The username for accessing RabbitMQ (default is "admin").
+- **`<rabbitmq_password>`**: The password for accessing RabbitMQ (default is "admin").
+- **`<rabbitmq_host>`**: The hostname or IP address of the RabbitMQ service.
+- **`<rabbitmq_port>`**: The port number for RabbitMQ (default is 5672).
+
+---
+
+Make sure to update each `.env` file with the appropriate values specific to your deployment environment.

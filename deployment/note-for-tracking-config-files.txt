@@ -1,0 +1,5 @@
+If you want to track the changes in the configs do this command, from root workspace:
+git update-index --no-assume-unchanged ./deployment/configs/*
+
+After you committed made your changes to the env templates, type this to untrack your changes, from the root workspace:
+git update-index --assume-unchanged ./deployment/configs/*
