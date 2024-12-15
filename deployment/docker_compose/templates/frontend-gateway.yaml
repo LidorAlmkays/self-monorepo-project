@@ -7,6 +7,6 @@ services:
       dockerfile: 'apps/frontend_gateway/Dockerfile'
     env_file:
       - ../../configs/frontend-gateway.env
-      - ../../configs/network.env
+      - ../../configs/network-info.env
     networks:
       - common-network

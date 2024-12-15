@@ -6,7 +6,7 @@ services:
       context: '../../../'
       dockerfile: 'apps/video_manager/Dockerfile'
     env_file:
-      - ../../configs/network.env
+      - ../../configs/network-info.env
 
     networks:
       - common-network

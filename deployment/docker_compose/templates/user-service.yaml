@@ -9,7 +9,7 @@ services:
       - mongodb
     env_file:
       - ../../configs/user-service.env
-      - ../../configs/network.env
+      - ../../configs/network-info.env
 
     networks:
       - common-network
