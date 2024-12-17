@@ -6,9 +6,10 @@ use (
 	./apps/frontend_gateway
 	./apps/user
 	./apps/video_manager
+	./deployment/tools/k8s-management
 	./libs/configs
+	./libs/dtos
 	./libs/enums
 	./libs/logger
 	./libs/validators
-	./libs/dtos
 )

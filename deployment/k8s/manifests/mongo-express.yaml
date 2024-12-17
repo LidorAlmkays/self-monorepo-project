@@ -25,16 +25,19 @@ spec:
                 secretKeyRef:
                   name: mongo-express-secret
                   key: me-config-mongodb-adminusername
+
             - name: ME_CONFIG_MONGODB_ADMINPASSWORD
               valueFrom:
                 secretKeyRef:
                   name: mongo-express-secret
                   key: me-config-mongodb-adminpassword
-            - name: ME_CONFIG_MONGODB_SERVER
+
+            - name: ME_CONFIG_MONGODB_URL
               valueFrom:
                 secretKeyRef:
                   name: mongo-express-secret
                   key: me-config-mongodb-url
+
             - name: ME_CONFIG_BASICAUTH
               valueFrom:
                 secretKeyRef:
