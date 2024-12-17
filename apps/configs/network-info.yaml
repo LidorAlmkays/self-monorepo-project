@@ -2,8 +2,8 @@ frontend-gateway:
   project-name: "frontend-gateway"
   ip: "localhost"
   port: 5000
-user-service:
-  project-name: "user-service"
+authDB:
+  project-name: "authDB"
   ip: "localhost"
   port: 5001
 video-manager:

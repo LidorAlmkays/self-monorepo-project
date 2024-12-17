@@ -17,7 +17,7 @@ type ServiceConfig struct {
 }
 
 type NetworkConfig struct {
-	Self        *network.FrontendGateway `yaml:"frontend-gateway" validate:"required"`
-	UserService *network.UserService     `yaml:"user-service" validate:"required"`
-	Frontend    *network.Frontend        `yaml:"frontend" validate:"required"`
+	Self     *network.FrontendGateway `yaml:"frontend-gateway" validate:"required"`
+	AuthDB   *network.AuthDB          `yaml:"authDB-service" validate:"required"`
+	Frontend *network.Frontend        `yaml:"frontend" validate:"required"`
 }

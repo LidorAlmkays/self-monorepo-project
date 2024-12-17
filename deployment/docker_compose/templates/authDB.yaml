@@ -1,0 +1,15 @@
+services:
+  authDB:
+    container_name: authDB
+    restart: unless-stopped
+    build:
+      context: '../../../'
+      dockerfile: 'apps/authDB/Dockerfile'
+    depends_on:
+      - mongodb
+    env_file:
+      - ../../configs/authDB.env
+      - ../../configs/network-info.env
+
+    networks:
+      - common-network

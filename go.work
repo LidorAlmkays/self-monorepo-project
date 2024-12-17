@@ -4,7 +4,7 @@ toolchain go1.23.0
 
 use (
 	./apps/frontend_gateway
-	./apps/user
+	./apps/authDB
 	./apps/video_manager
 	./deployment/tools/k8s-management
 	./libs/configs
