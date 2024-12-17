@@ -93,11 +93,11 @@ create_dated_output_dir() {
   mkdir -p "$full_path"
 
   # Create or overwrite a .gitignore file to ignore all files in this directory
-  echo "*" > "$full_path/.gitignore"
-  echo "!README.md" >> "$full_path/.gitignore"
+  echo "*" > "$OUTPUT_DIR/.gitignore"
+  echo "!README.md" >> "$OUTPUT_DIR/.gitignore"
 
   # Optional: Create a README.md to explain why this folder is ignored
-  cat <<EOF > "$full_path/README.md"
+  cat <<EOF > "$OUTPUT_DIR/README.md"
 # Secrets YAML Folder
 
 This folder contains generated YAML files for Kubernetes secrets. These files are ignored by Git for security reasons.
